@@ -86,3 +86,31 @@
 #' @references
 #' \insertAllCited{}
 "dat_gnambs2020"
+
+
+#' @title Studies on Out-Group Entitativity and Prejudice
+#' 
+#' @description Results from 21 studies, including 85 effect sizes (Fisher Z), on the effect of 
+#' out-Group entitativity and prejudice \insertCite{agadullina2018people}{blsmeta}.
+#' 
+#' 
+#' @format A data frame with 85 rows and 9 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study author
+#' * \code{pub_year}: year of publication
+#' * \code{n}: sample size
+#' * \code{design}: within or between subjects design
+#' * \code{ent_alpha}: entitativity score
+#' * \code{yi}: effect size (Fisher z)
+#' * \code{vi}: sampling variance (SE^2)
+#' 
+#' 
+#' @details Further details can be found at \href{https://osf.io/8dw5y/}{https://osf.io/8dw5y/}.
+#' 
+#' @usage data("dat_agadullina2018")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_agadullina2018" 
