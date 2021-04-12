@@ -24,6 +24,38 @@
 #' @details Further details can be found at \href{https://osf.io/5admx/}{https://osf.io/5admx/}.
 #' 
 #' @usage data("dat_barroso2020")
+#' 
 #' @references
 #' \insertAllCited{}
 "dat_barroso2020"
+
+
+#' @title Studies on Age Differences in Executive Functioning
+#' 
+#' @description Results from 431 studies, including 1268 effect sizes (Hedge's g), on age differences in 
+#' executive functioning \insertCite{maldonado2020age}{blsmeta}.
+#' 
+#' @format A data frame with 1268 rows and 13 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study authors
+#' * \code{domain}: executive functioning domain
+#' * \code{n1}: sample size in younger group
+#' * \code{n2}: sample size in older group
+#' * \code{n_total}: total sample size (n1 + n2)
+#' * \code{mean_age1}: mean age of younger group
+#' * \code{mean_age2}: mean age of older group
+#' * \code{miyake}: framework put forward by Mijake and colleagues
+#' * \code{task}: cognitive task administered
+#' * \code{yi}: effect size (Hedge's g)
+#' * \code{vi}: sampling variance (SE^2)
+#' @md
+#' 
+#' @details Further details can be found at \href{https://osf.io/bcywg/}{https://osf.io/bcywg/}.
+#' 
+#' @usage data("dat_maldonado2018")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_maldonado2018"
