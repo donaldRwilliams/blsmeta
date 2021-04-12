@@ -59,3 +59,30 @@
 #' @references
 #' \insertAllCited{}
 "dat_maldonado2018"
+
+
+#' @title Studies on the Color Red and Cognitive Performance
+#' 
+#' @description Results from 22 studies, including 67 effect sizes (SMD), on the effect of 
+#' the color red on cognitive performance \insertCite{gnambs2020limited}{blsmeta}.
+#' 
+#' @format A data frame with 67 rows and 10 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study author
+#' * \code{pub_year}: year of publication
+#' * \code{country}: country where experiment was conducted
+#' * \code{color}: control color
+#' * \code{n}: sample size
+#' * \code{design}: within or between subjects design
+#' * \code{yi}: effect size (standardized mean difference)
+#' * \code{vi}: sampling variance (SE^2)
+#' 
+#' @details Further details can be found at \href{https://psyarxiv.com/a4qdv/}{https://psyarxiv.com/a4qdv/}.
+#' 
+#' @usage data("dat_gnambs2020")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_gnambs2020"
