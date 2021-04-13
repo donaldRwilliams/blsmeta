@@ -141,3 +141,37 @@
 #' @references
 #' \insertAllCited{}
 "dat_steffens2020"
+
+
+
+#' @title Studies on Shared Reading and Language Development
+#' 
+#' @description Results from 54 studies, including 316 effect sizes (Hedge's g), on the extent to which 
+#' shared reading impacts language development \insertCite{noble2019impact}{blsmeta}.
+#' 
+#' @format A data frame with 316 rows and 13 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id 
+#' * \code{author}: study author
+#' * \code{measure}: measure used in the study
+#' * \code{age}: age of participants, grouped into categories.
+#' * \code{ses}: socio-economic status
+#' * \code{experimenter}: who administered the test (pa)
+#' * \code{duratio}: number of weeks
+#' * \code{dialogic_reading}: dialogic reading
+#' * \code{follow_up}: follow up
+#' * \code{n}: sample size
+#' * \code{yi}: effect size (Hedge's g)
+#' * \code{vi}: sampling variance (SE^2)
+#' 
+#'  
+#' @md
+#' 
+#' @details Further details can be found at \href{https://osf.io/34xyw/}{https://osf.io/34xyw/} 
+#' 
+#' @usage data("dat_noble2018")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_noble2018"
