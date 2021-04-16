@@ -13,21 +13,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-# blsmeta
+# blsmeta: Bayesian Location-Scale Meta-Analysis
 
-<!-- badges: start -->
-<!-- badges: end -->
+Version 1 is forthcoming, say, by May 2021.
 
-The goal of blsmeta is to ...
+<!-- <!-- badges: start --> -->
+<!-- <!-- badges: end --> -->
 
-## Installation
+<!-- ## Installation -->
 
-You can install the development version from [GitHub](https://github.com/) with:
+<!-- You can install the development version from [GitHub](https://github.com/) with: -->
 
-``` r
-# install.packages("devtools")
-devtools::install_github("donaldRwilliams/blsmeta")
-```
-## Example
+<!-- ``` r -->
+<!-- # install.packages("devtools") -->
+<!-- devtools::install_github("donaldRwilliams/blsmeta") -->
+<!-- ``` -->
+<!-- ## Example -->
 
-This is a basic example which shows you how to solve a common problem:
+<!-- This is a basic example which shows you how to solve a common problem: -->
