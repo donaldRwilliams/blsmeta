@@ -1,3 +1,5 @@
+#' @importFrom nlme ranef
+#' @export ranef
 two_level <- function() {
   
   for (i in 1:K) {
@@ -145,7 +147,7 @@ extract_re_2 <- function(x){
       x[, grep("re_2", colnames(x))]
     )
   # order
-  re_2 <- re_2[,paste0("re_2[", 1:ncol(test), "]")]
+  re_2 <- re_2[,paste0("re_2[", 1:ncol(re_2), "]")]
   return(re_2)
 }
 
@@ -156,29 +158,24 @@ center_helper <- function(x){
   })
   
   if (length(unique_cols) == 1) {
-    
     x_new <- x
-  
-    } else {
     
+  } else {
     if (unique_cols[1] == 1) {
-      
-      x_new <- as.matrix(x[, -1])
+      x_new <- as.matrix(x[,-1])
       
       for (i in seq_along(ncol(x_new))) {
-        
         x_new[, i] <- x_new[, i] - mean(x_new)
-      
-        }
+        
+      }
       
       x_new <- cbind(1, x_new)
     } else {
-      
       x_mean <- NA
-    
-      }
-  
+      
     }
+    
+  }
   
   colnames(x_new) <- colnames(x)
   
@@ -188,15 +185,46 @@ center_helper <- function(x){
 }
 
 # s2 helper
-s2_helper <- function(vari){
+s2_helper <- function(vi, method = "ht"){
   # number of studies
-  k <- length(vari)
+  k <- length(vi)
   # weights
-  wi <- 1/vari
+  wi <- 1/vi
   # Equation 9 in
   # Higgins, J. P., & Thompson, S. G. (2002). Quantifying 
   # heterogeneity in a meta‐analysis. Statistics in medicine,
   # 21(11), 1539-1558.
-  s2 <- sum(wi * (k - 1)) / (sum(wi)^2 - sum(wi^2))
+  if(method == "ht"){
+    s2 <- sum(wi * (k - 1)) / (sum(wi)^2 - sum(wi^2))
+  } else if (method == "rl"){
+    s2 <- k / sum(sqrt(vi)^-2)
+  } else if (method == "rm"){
+    s2 <- mean(vi)
+  } else {
+    stop("method not supported. must be 'ht', 'rl', or 'rm'.")
+  }
   return(s2)
+}
+
+I2_helper <- function(tau2, vi, method = "ht") {
+  # number of studies
+  k <- length(vi)
+  if (method %in% c("ht", "rl", "rm")) {
+    s2 <- s2_helper(vari = vi, method = method)
+    I2 <- tau2 / (tau2 + s2)
+  } else {
+    I2 <- mean(tau2 / (tau2 + vi))
+  }
+  return(I2)
+}
+
+# kl divergence
+kl <- function(v1, v2, d1, d2){
+  (log(sqrt(v2)/ sqrt(v1)) + ((v1 + (d1 - d2)^2)/(2*v2))) - 0.5
+}
+
+cred_helper <- function(x){
+  lb <- (1 - x) / 2
+  ub <- 1 - lb
+  return(c(lb, ub))
 }

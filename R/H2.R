@@ -2,13 +2,15 @@
 #'
 #' @param x 
 #' @param newdata 
+#' @param v 
 #' @param summary 
+#' @param cred 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-bayes_I2 <- function(x, 
+bayes_H2 <- function(x, 
                      newdata = NULL, 
                      v = NULL, 
                      summary = FALSE, 
@@ -51,18 +53,18 @@ bayes_I2 <- function(x,
   }
   
   # compute 'i2'
-  i2 <- apply(level_2_var, 1, function(x){ 
-    return(x / (x + s2))
-    })
+  h2 <- apply(level_2_var, 1, function(x){ 
+    return((x + s2) / s2)
+  })
   
   if (summary) {
     creds <- cred_helper(cred)
-    i2 <- data.frame(
-      Post.mean = colMeans(i2),
-      Post.sd = apply(i2, 2, sd),
-      Cred.lb = apply(i2, 2,  quantile, creds[1]),
-      Cred.ub = apply(i2, 2,  quantile, creds[2])
+    h2 <- data.frame(
+      Post.mean = colMeans(h2),
+      Post.sd = apply(h2, 2, sd),
+      Cred.lb = apply(h2, 2,  quantile, creds[1]),
+      Cred.ub = apply(h2, 2,  quantile, creds[2])
     )
   }
-  return(i2)   
+  return(h2)   
 }
