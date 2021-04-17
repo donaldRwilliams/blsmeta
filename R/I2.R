@@ -10,40 +10,44 @@
 #' @examples
 I2 <- function(x, newdata = NULL, v = NULL, summary){
   
+  # check class
   if(!is(x, "blsmeta")){
     stop("invalid class. must be 'blsmeta'")
   }
-  
+  # extract samples
   samps <- extract_samples(x)
   
-  if(is.null(v)){
-    s2 <- s2_helper(x$model$data()$v)
-    } else {
-      
-      s2 <- v
+  if(is.null(v)) {
+    # compute 'typical' s2
+    s2 <- s2_helper(vari = x$model$data()$v)
+  } else {
+    # user defined sampling variance
+    s2 <- v
   }
   
-  gammas <- extract_gamma(samps, x$mean_X2)
+  # level 2 scale coefficients
+  gammas <- extract_gamma(x = samps, mean_X2 = x$mean_X2)
   
-  if(is.null(newdata)){
+  if (is.null(newdata)) {
+    # fitted values
+    level_2_var <- exp(x$x2old %*%  t(gammas)) ^ 2
+  } else {
+    # user data
+    newdata <-
+      as.matrix(cbind.data.frame("(Intercept)" =  1, newdata))
     
-    level_2_var <- exp(x$x2old %*%  t(gammas))^2
-    
-  } else{
-    
-    newdata <- as.matrix(cbind.data.frame("(Intercept)" =  1, newdata))
-    
-    if(any(isFALSE( colnames(x$x2old) == colnames(newdata)))){
+    # check column names
+    if (any(isFALSE(colnames(x$x2old) == colnames(newdata)))) {
       message("invalid newdata. must match old data, including column names and order")
     }
-    
-    level_2_var <- newdata %*% t(gammas)
+    # fitted values
+    level_2_var <- exp(newdata %*% t(gammas))^2
   }
   
-  icc <- apply(
-    level_2_var, 1, function(x){ 
-      x / (x + s2)
-    }
-  )
+  # compute 'icc'
+  icc <- apply(level_2_var, 1, function(x){ 
+    return(x / (x + s2))
+    })
+  
   return(icc)   
 }
