@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-icc <- function(x, newdata = NULL, summary){
+I2 <- function(x, newdata = NULL, v = NULL, summary){
   
   if(!is(x, "blsmeta")){
     stop("invalid class. must be 'blsmeta'")
@@ -16,7 +16,12 @@ icc <- function(x, newdata = NULL, summary){
   
   samps <- extract_samples(x)
   
-  s2 <- s2_helper(x$model$data()$v)
+  if(is.null(v)){
+    s2 <- s2_helper(x$model$data()$v)
+    } else {
+      
+      s2 <- v
+  }
   
   gammas <- extract_gamma(samps, x$mean_X2)
   
