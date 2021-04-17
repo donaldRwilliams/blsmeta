@@ -151,32 +151,51 @@ extract_re_2 <- function(x){
 
 center_helper <- function(x){
   
-  unique_cols <- apply(x,2, function(i){
+  unique_cols <- apply(x, 2, function(i) {
     length(unique(i))
   })
   
-  if(length(unique_cols)==1){
+  if (length(unique_cols) == 1) {
+    
     x_new <- x
-  } else {
   
-  if(unique_cols[1] == 1){
+    } else {
     
-    x_new <- as.matrix(x[,-1])
+    if (unique_cols[1] == 1) {
+      
+      x_new <- as.matrix(x[, -1])
+      
+      for (i in seq_along(ncol(x_new))) {
+        
+        x_new[, i] <- x_new[, i] - mean(x_new)
+      
+        }
+      
+      x_new <- cbind(1, x_new)
+    } else {
+      
+      x_mean <- NA
     
-    for(i in seq_along(ncol(x_new))) {
-     
-      x_new[,i] <- x_new[,i] - mean(x_new)
+      }
+  
     }
-    
-    x_new <- cbind(1, x_new)
-  } else {
-    x_mean <- NA
-  }
-  }
   
   colnames(x_new) <- colnames(x)
   
-  list(x  = x_new, 
-       x_mean = colMeans(x), 
+  list(x  = x_new,
+       x_mean = colMeans(x),
        xold = x)
+}
+
+# s2 helper
+s2_helper <- function(vari){
+  # number of studies
+  k <- length(vari)
+  # weights
+  wi <- 1/vari
+  # Equation 9 in
+  # Higgins, J. P., & Thompson, S. G. (2002). Quantifying 
+  # heterogeneity in a meta‐analysis. Statistics in medicine,
+  # 21(11), 1539-1558.
+  sum(wi * (k - 1)) / (sum(wi)^2 - sum(wi^2))
 }
