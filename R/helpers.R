@@ -197,5 +197,6 @@ s2_helper <- function(vari){
   # Higgins, J. P., & Thompson, S. G. (2002). Quantifying 
   # heterogeneity in a meta‐analysis. Statistics in medicine,
   # 21(11), 1539-1558.
-  sum(wi * (k - 1)) / (sum(wi)^2 - sum(wi^2))
+  s2 <- sum(wi * (k - 1)) / (sum(wi)^2 - sum(wi^2))
+  return(s2)
 }
