@@ -14,7 +14,7 @@ two_level <- function() {
   
   # fixed effect
   for (i in  1:K) {
-    fe_mu[i] <- inprod(X[i, ], beta)
+    fe_mu[i] <- inprod(X[i, ], beta) 
   }
   
   # priors for beta
@@ -101,7 +101,7 @@ prior_beta_helper <- function(X, mu){
   
 }
 
-extract_samples.blsmeta <- function(x){
+extract_samples <- function(x){
   # x: fitted model
   posterior_samples <- 
     do.call(
@@ -111,16 +111,21 @@ extract_samples.blsmeta <- function(x){
   return(posterior_samples)
 }
 
-extract_samples <- function (x, ...) {
-  UseMethod("extract_samples", x)
-}
+# extract_samples <- function (x, ...) {
+#   UseMethod("extract_samples", x)
+# }
 
-extract_gamma <- function(x){
+extract_gamma <- function(x, mean_X2){
   # x: posterior samples
-  gammas <- 
+  gammas <-
     as.matrix(
       x[, grep("gamma", colnames(x))]
     )
+  
+  # if intercept in model
+  if(!any(is.na(mean_X2))){
+    gammas[,1] <- gammas[,1] - t(mean_X2[-1] %*% t(gammas[,-1]))
+  }
   return(gammas)
 }
 
@@ -142,4 +147,36 @@ extract_re_2 <- function(x){
   # order
   re_2 <- re_2[,paste0("re_2[", 1:ncol(test), "]")]
   return(re_2)
+}
+
+center_helper <- function(x){
+  
+  unique_cols <- apply(x,2, function(i){
+    length(unique(i))
+  })
+  
+  if(length(unique_cols)==1){
+    x_new <- x
+  } else {
+  
+  if(unique_cols[1] == 1){
+    
+    x_new <- as.matrix(x[,-1])
+    
+    for(i in seq_along(ncol(x_new))) {
+     
+      x_new[,i] <- x_new[,i] - mean(x_new)
+    }
+    
+    x_new <- cbind(1, x_new)
+  } else {
+    x_mean <- NA
+  }
+  }
+  
+  colnames(x_new) <- colnames(x)
+  
+  list(x  = x_new, 
+       x_mean = colMeans(x), 
+       xold = x)
 }
