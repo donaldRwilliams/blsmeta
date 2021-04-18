@@ -228,3 +228,24 @@ cred_helper <- function(x){
   ub <- 1 - lb
   return(c(lb, ub))
 }
+
+plug_in_sf <- function(vi, tau2){
+  sf <- tau2 / (tau2 + vi)
+  return(sf)
+}
+
+plug_in_eb <- function(overall_mean, 
+                       study_mean, 
+                       vi, 
+                       tau2){
+  
+  sf <- plug_in_sf(vi, tau2)
+  
+  eb <- (sf * study_mean)  + ((1 - sf) * overall_mean)
+  
+  eb_var <- sqrt(vi) * sqrt(sf)
+  
+  eb_dat <- data.frame(eb = eb, eb_var = eb_var)
+  
+  return(eb_data)
+}
