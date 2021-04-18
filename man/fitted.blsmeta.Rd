@@ -4,12 +4,18 @@
 \alias{fitted.blsmeta}
 \title{Title}
 \usage{
-\method{fitted}{blsmeta}(object, type = "metafor")
+\method{fitted}{blsmeta}(object, re_formula = NULL, summary = TRUE, cred = 0.95, ...)
 }
 \arguments{
 \item{object}{}
 
-\item{type}{}
+\item{re_formula}{}
+
+\item{summary}{}
+
+\item{cred}{}
+
+\item{...}{}
 }
 \value{
 

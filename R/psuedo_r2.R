@@ -19,7 +19,7 @@ psuedo_R2 <- function(fit_re,
     stop("different number of posterior samples")
   }
   
-  if (!all.equal(colnames(fit_re$x2old), colnames(fit_me$x2old))) {
+  if (!all(colnames(X2) == colnames(object$x2old))) {
     stop("differt mod_tau_2. must be the same in both models")
   }
   

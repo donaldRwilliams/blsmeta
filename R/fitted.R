@@ -2,15 +2,21 @@
 #'
 #' @param re_formula 
 #' @param object 
+#' @param summary 
+#' @param cred 
+#' @param ... 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-fitted.blsmeta <- function(object, re_formula = NULL){
+fitted.blsmeta <- function(object, 
+                           re_formula = NULL, 
+                           summary = TRUE, 
+                           cred = 0.95, ...){
   
   # check class
-  if(!is(x, "blsmeta")){
+  if(!is(object, "blsmeta")){
     stop("invalid class. must be 'blsmeta'")
   }
   
@@ -32,12 +38,28 @@ fitted.blsmeta <- function(object, re_formula = NULL){
       sapply(1:k, function(x){
         object$xold[x,] %*% t(cbind(betas[,1] + re_2[,x], betas[,2]))
       })
-  } else { 
-    stop("invalid 'type'. must be 'metafor' or 'brms'")
   } else if (is.na(re_formula)) {
     
-    yhat <- object$xold %*% t(extract_beta(samps, object$mean_X))
+    yhat <- t(object$xold %*% t(extract_beta(samps, object$mean_X)))
+  } else { 
+    stop("invalid 'type'. must be 'metafor' or 'brms'")
+  } 
+  
+  if (summary) {
+    creds <- cred_helper(cred)
+    lb <- creds[1]
+    ub <- creds[2]
+    
+    # yhat <- t(yhat)
+    
+    yhat <- data.frame(
+      Post.mean = colMeans(yhat),
+      Post.sd = apply(yhat, 2, sd),
+      Cred.lb = apply(yhat, 2,  quantile, lb),
+      Cred.ub = apply(yhat, 2,  quantile, ub)
+    )
   }
+  
  return(yhat)
 }
 

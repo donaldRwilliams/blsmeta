@@ -92,7 +92,8 @@ blsmeta <- function(yi, vi,
   fit$x2old <- x2old
   
   fit$save_ranef <- save_ranef
-  
+  fit$arg <- arg
+  fit$dat <- data
   class(fit) <- c("rjags", "blsmeta")
   return(fit)
 }
