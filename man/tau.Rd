@@ -4,10 +4,14 @@
 \alias{tau}
 \title{Title}
 \usage{
-tau(x, scale_level_two = NULL, data, summary = TRUE, cred = 0.95)
+tau(x, mod_tau_2 = NULL, data, summary = TRUE, cred = 0.95)
 }
 \arguments{
 \item{x}{}
+
+\item{mod_tau_2}{}
+
+\item{data}{}
 
 \item{summary}{}
 

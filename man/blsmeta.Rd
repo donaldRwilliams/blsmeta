@@ -8,8 +8,9 @@ blsmeta(
   yi,
   vi,
   es_id = NULL,
-  mod,
-  scale_level_two,
+  mod = ~1,
+  mod_tau_2 = ~1,
+  store_varying = TRUE,
   iter = 5000,
   chains = 4,
   data
@@ -24,7 +25,7 @@ blsmeta(
 
 \item{mod}{}
 
-\item{scale_level_two}{}
+\item{store_varying}{}
 
 \item{iter}{}
 

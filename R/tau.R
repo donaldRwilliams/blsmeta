@@ -3,12 +3,14 @@
 #' @param x 
 #' @param summary 
 #' @param cred 
+#' @param mod_tau_2 
+#' @param data 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-tau <- function(x, scale_level_two = NULL, data, summary = TRUE, cred = 0.95){
+tau <- function(x, mod_tau_2 = NULL, data, summary = TRUE, cred = 0.95){
   # check class
   if(!is(x, "blsmeta")){
     stop("invalid class. must be 'blsmeta'")
@@ -20,11 +22,11 @@ tau <- function(x, scale_level_two = NULL, data, summary = TRUE, cred = 0.95){
   # level 2 scale coefficients
   gammas <- extract_gamma(x = samps, mean_X2 = x$mean_X2)
   
-  if (is.null(scale_level_two)) {
+  if (is.null(mod_tau_2)) {
     # fitted values
     level_2_sd <- t(exp(x$x2old %*%  t(gammas)))
   } else {
-    level_2_sd <- t(exp(model.matrix(scale_level_two, data) %*% t(gammas)))
+    level_2_sd <- t(exp(model.matrix(mod_tau_2, data) %*% t(gammas)))
   }
   
   if (summary) {
