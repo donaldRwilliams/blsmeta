@@ -8,7 +8,7 @@
 #' @param iter 
 #' @param chains 
 #' @param data 
-#' @param store_varying 
+#' @param save_ranef 
 #'
 #' @return
 #' @export
@@ -18,7 +18,7 @@ blsmeta <- function(yi, vi,
                     es_id = NULL, 
                     mod = ~ 1, 
                     mod_tau_2 = ~ 1, 
-                    store_varying = TRUE,
+                    save_ranef = TRUE,
                     iter = 5000,
                     chains = 4,
                     data){
@@ -37,8 +37,14 @@ blsmeta <- function(yi, vi,
   
   if( is.null( arg$mod ) ){
     X <- model.matrix(~ 1, data)
+    xold <- X
+    mean_X <- 1
   } else {
     X <- model.matrix(mod, data)
+    center_X <- center_helper(X)
+    X <- center_X$x
+    xold <- center_X$xold
+    mean_X <- center_X$x_mean
   }
   
   if(is.null(arg$mod_tau_2)) {
@@ -62,7 +68,7 @@ blsmeta <- function(yi, vi,
                 prior_beta_helper(X, mean(dat_list$y)), 
                 design_mats, K = k)
   
-  if (store_varying) {
+  if (save_ranef) {
     params <- c("gamma", "beta", "re_2")
   } else {
     params <- c("gamma", "beta")
@@ -79,10 +85,14 @@ blsmeta <- function(yi, vi,
     parameters.to.save = params
   )
   
+  fit$mean_X <- mean_X
+  fit$xold <- xold
+  
   fit$mean_X2 <- mean_X2
   fit$x2old <- x2old
-  fit$arg <- arg
-  class(fit) <- c("rjags", 
-                  "blsmeta")
+  
+  fit$save_ranef <- save_ranef
+  
+  class(fit) <- c("rjags", "blsmeta")
   return(fit)
 }

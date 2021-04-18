@@ -131,12 +131,16 @@ extract_gamma <- function(x, mean_X2){
   return(gammas)
 }
 
-extract_beta <- function(x){
+extract_beta <- function(x, mean_X){
   # x: posterior samples
   betas <- 
     as.matrix(
       x[, grep("beta", colnames(x))]
     )
+  if(!any(is.na(mean_X))){
+    betas[,1] <- betas[,1] - t(mean_X[-1] %*% t(betas[,-1]))
+  }
+  
   return(betas)
 }
 

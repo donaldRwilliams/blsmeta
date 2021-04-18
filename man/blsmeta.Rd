@@ -10,7 +10,7 @@ blsmeta(
   es_id = NULL,
   mod = ~1,
   mod_tau_2 = ~1,
-  store_varying = TRUE,
+  save_ranef = TRUE,
   iter = 5000,
   chains = 4,
   data
@@ -25,7 +25,7 @@ blsmeta(
 
 \item{mod}{}
 
-\item{store_varying}{}
+\item{save_ranef}{}
 
 \item{iter}{}
 

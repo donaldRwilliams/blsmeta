@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param fit_re 
+#' @param fit_me 
+#' @param mod_tau_2 
+#' @param data 
+#' @param measure 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 psuedo_R2 <- function(fit_re, 
                       fit_me, 
                       mod_tau_2 = NULL, 
