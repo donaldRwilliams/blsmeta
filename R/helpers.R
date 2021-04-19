@@ -78,7 +78,7 @@ prior_gamma_helper <- function(X2){
   prior_mean_gamma <- c(-2, rep(0, p_gamma-1))
   
   # prior sd
-  prior_sd_gamma <- c(1, rep(0.1, p_gamma-1))
+  prior_sd_gamma <- c(1, rep(1, p_gamma-1))
   
   list(p_gamma = p_gamma, 
        prior_mean_gamma = prior_mean_gamma, 
@@ -253,7 +253,7 @@ plug_in_eb <- function(overall_mean,
   
   eb_dat <- data.frame(eb = eb, eb_var = eb_var)
   
-  return(eb_data)
+  return(eb_dat)
 }
 
 wi_star <- function(yi, vi, tau2i){
