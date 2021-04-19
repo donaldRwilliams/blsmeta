@@ -15,7 +15,7 @@ coef.blsmeta <- function(object, summary = TRUE, cred = 0.95, ...){
   
   re2 <- extract_re_2(samps)
   
-  int <- as.matrix(extract_beta(samps)[,1])
+  int <- as.matrix(extract_beta(samps, object$mean_X)[,1])
   
   k <- ncol(re2)
   

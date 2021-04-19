@@ -26,10 +26,6 @@ posterior_predict <- function(object,
     stop("invalid class. must be 'blsmeta'")
   }
   
-  # if(is.null(data)){
-  #   data <- object$data
-  # }
-  
   samps <- extract_samples(object)
   
   re_2 <- extract_re_2(samps)
@@ -58,9 +54,15 @@ posterior_predict <- function(object,
       
       yrep <-
         sapply(1:k, function(x) {
+          if (p_beta == 1) {
+            yhat <-  object$xold[x,] %*% t(cbind(betas[, 1] + re_2[, x]))
+          } else {
+            yhat <-
+              object$xold[x,] %*% t(cbind(betas[, 1] + re_2[, x], betas[, 2:p_beta]))
+          }
           rnorm(
             n = nsamps,
-            mean = object$xold[x, ] %*% t(cbind(betas[, 1] + re_2[, x], betas[, 2:p_beta])),
+            mean = yhat,
             sd =  sqrt(vi[x])
           )
         })
@@ -96,9 +98,6 @@ posterior_predict <- function(object,
         stop("different mod_tau_2. must be the same in both models")
       }
     }
-    
-    
-    
     
     level_2_var <- t(exp(X2 %*% t(gammas))) ^ 2
     
