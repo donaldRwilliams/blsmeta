@@ -81,7 +81,7 @@ posterior_predict <- function(object,
       X <- model.matrix(mod, data)
       
       if (!all(colnames(X) == colnames(object$xold))) {
-        stop("different mod_tau_2. must be the same in both models")
+        stop("different mod. must be the same as the fitted model.")
       }
       
     }
@@ -95,7 +95,7 @@ posterior_predict <- function(object,
       X2 <- model.matrix(mod_tau_2, data)
       
       if (!all(colnames(X2) == colnames(object$x2old))) {
-        stop("different mod_tau_2. must be the same in both models")
+        stop("different mod_tau_2. must be the same as the fitted model.")
       }
     }
     

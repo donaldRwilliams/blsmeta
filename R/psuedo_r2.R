@@ -15,13 +15,13 @@ psuedo_R2 <- function(fit_re,
                       mod_tau_2 = NULL, 
                       data, measure = "r2"){
   
-  if(nrow(tau_re) != nrow(tau_me)){
-    stop("different number of posterior samples")
-  }
-  
-  if (!all(colnames(X2) == colnames(object$x2old))) {
-    stop("differt mod_tau_2. must be the same in both models")
-  }
+  # if(nrow(tau_re) != nrow(tau_me)){
+  #   stop("different number of posterior samples")
+  # }
+  # 
+  # if (!all(colnames(X2) == colnames(object$x2old))) {
+  #   stop("differt mod_tau_2. must be the same in both models")
+  # }
   
   if (measure == "r2") {
     

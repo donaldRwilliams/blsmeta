@@ -11,7 +11,11 @@ bayes_I2(x, newdata = NULL, v = NULL, summary = FALSE, cred = 0.95)
 
 \item{newdata}{}
 
+\item{v}{}
+
 \item{summary}{}
+
+\item{cred}{}
 }
 \value{
 

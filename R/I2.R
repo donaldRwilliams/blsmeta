@@ -3,6 +3,8 @@
 #' @param x 
 #' @param newdata 
 #' @param summary 
+#' @param v 
+#' @param cred 
 #'
 #' @return
 #' @export
