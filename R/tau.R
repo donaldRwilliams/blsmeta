@@ -30,7 +30,9 @@ tau <- function(x, mod_tau_2 = NULL, data, summary = TRUE, cred = 0.95){
   }
   
   if (summary) {
+    
     creds <- cred_helper(cred)
+    
     lb <- creds[1]
     ub <- creds[2]
     

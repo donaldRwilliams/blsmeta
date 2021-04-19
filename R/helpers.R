@@ -78,7 +78,7 @@ prior_gamma_helper <- function(X2){
   prior_mean_gamma <- c(-2, rep(0, p_gamma-1))
   
   # prior sd
-  prior_sd_gamma <- rep(1, p_gamma)
+  prior_sd_gamma <- c(1, rep(0.1, p_gamma-1))
   
   list(p_gamma = p_gamma, 
        prior_mean_gamma = prior_mean_gamma, 
@@ -113,9 +113,10 @@ extract_samples <- function(x){
   return(posterior_samples)
 }
 
-# extract_samples <- function (x, ...) {
-#   UseMethod("extract_samples", x)
-# }
+estimate_mode <- function(x) {
+  d <- density(x)
+  d$x[which.max(d$y)]
+}
 
 extract_gamma <- function(x, mean_X2){
   # x: posterior samples
@@ -140,7 +141,6 @@ extract_beta <- function(x, mean_X){
   if(!any(is.na(mean_X))){
     betas[,1] <- betas[,1] - t(mean_X[-1] %*% t(betas[,-1]))
   }
-  
   return(betas)
 }
 
@@ -165,6 +165,7 @@ center_helper <- function(x){
     x_new <- x
     
   } else {
+    
     if (unique_cols[1] == 1) {
       x_new <- as.matrix(x[,-1])
       
@@ -172,7 +173,6 @@ center_helper <- function(x){
         x_new[, i] <- x_new[, i] - mean(x_new)
         
       }
-      
       x_new <- cbind(1, x_new)
     } else {
       x_mean <- NA
@@ -210,6 +210,7 @@ s2_helper <- function(vi, method = "ht"){
   return(s2)
 }
 
+# I2 helper
 I2_helper <- function(tau2, vi, method = "ht") {
   # number of studies
   k <- length(vi)
@@ -227,6 +228,7 @@ kl <- function(v1, v2, d1, d2){
   (log(sqrt(v2)/ sqrt(v1)) + ((v1 + (d1 - d2)^2)/(2*v2))) - 0.5
 }
 
+# cred helper
 cred_helper <- function(x){
   lb <- (1 - x) / 2
   ub <- 1 - lb
@@ -253,3 +255,19 @@ plug_in_eb <- function(overall_mean,
   
   return(eb_data)
 }
+
+wi_star <- function(yi, vi, tau2i){
+  wi <- 1/ vi
+  wi_star <- 1/(1/wi + tau2i)
+  return(wi_star)
+}
+
+re_mu <- function(yi, wi_star){
+  re_mu <- sum(wi_star * yi) / sum(wi_star)
+  return(re_mu)
+}
+
+re_mu_var <- function(wi_star){
+  re_mu_var <- sqrt(1/sum(wi_star))
+  return(re_mu_var)
+}  
