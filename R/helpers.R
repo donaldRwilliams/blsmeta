@@ -48,6 +48,10 @@ two_level <- function() {
     
   }
   
+  for(i in 1:K){
+    ynew[i] ~ dnorm(fe_mu[i], 1/exp(tau_2[i])^2 )
+  }
+  
 }
 
 data_helper <- function(data, arg){

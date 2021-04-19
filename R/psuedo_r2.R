@@ -5,14 +5,17 @@
 #' @param mod_tau_2 
 #' @param data 
 #' @param measure 
+#' @param summary 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-psuedo_R2 <- function(fit_re, 
+pseudo_R2 <- function(fit_re, 
                       fit_me, 
                       mod_tau_2 = NULL, 
+                      summary = TRUE,
+                      cred = 0.95,
                       data, measure = "r2"){
   
   # if(nrow(tau_re) != nrow(tau_me)){

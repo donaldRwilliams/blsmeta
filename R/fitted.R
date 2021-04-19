@@ -32,12 +32,20 @@ fitted.blsmeta <- function(object,
     
     betas <- extract_beta(samps, object$mean_X)
     
+    p_beta <- ncol(betas)
+    
     k <- ncol(re_2)
     
     yhat <- 
       sapply(1:k, function(x){
-        object$xold[x,] %*% t(cbind(betas[,1] + re_2[,x], betas[,2]))
-      })
+        
+        if(p_beta == 1){
+          yhat <- object$xold[x,] %*% t(cbind(betas[,1] + re_2[,x]))
+        } else {
+          yhat <-  object$xold[x,] %*% t(cbind(betas[,1] + re_2[,x], betas[,2:p_beta]))
+          }
+        return(yhat)
+          })
   } else if (is.na(re_formula)) {
     
     yhat <- t(object$xold %*% t(extract_beta(samps, object$mean_X)))

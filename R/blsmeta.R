@@ -69,7 +69,7 @@ blsmeta <- function(yi, vi,
                 design_mats, K = k)
   
   if (save_ranef) {
-    params <- c("gamma", "beta", "re_2")
+    params <- c("gamma", "beta", "re_2", "mu", 'ynew')
   } else {
     params <- c("gamma", "beta")
   }
