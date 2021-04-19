@@ -271,3 +271,8 @@ re_mu_var <- function(wi_star){
   re_mu_var <- sqrt(1/sum(wi_star))
   return(re_mu_var)
 }  
+
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
