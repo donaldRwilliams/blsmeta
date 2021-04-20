@@ -1,24 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# blsmeta
+# blsmeta: Bayesian Location-Scale Meta-Analysis
 
-<!-- badges: start -->
+Version 1 is forthcoming, say, by May 2021.
 
-<!-- badges: end -->
+<!-- You can install the development version from [GitHub](https://github.com/) with: -->
 
-The goal of blsmeta is to …
+<!-- ``` r -->
 
-## Installation
+<!-- # install.packages("devtools") -->
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+<!-- devtools::install_github("donaldRwilliams/blsmeta") -->
 
-``` r
-# install.packages("devtools")
-devtools::install_github("donaldRwilliams/blsmeta")
-```
+<!-- ``` -->
 
-## Example
+<!-- ## Example -->
 
-This is a basic example which shows you how to solve a common problem:
+<!-- This is a basic example which shows you how to solve a common problem: -->

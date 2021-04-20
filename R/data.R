@@ -411,3 +411,118 @@
 
 
 
+=======
+#' @title Studies on the Color Red and Cognitive Performance
+#' 
+#' @description Results from 22 studies, including 67 effect sizes (SMD), on the effect of 
+#' the color red on cognitive performance \insertCite{gnambs2020limited}{blsmeta}.
+#' 
+#' @format A data frame with 67 rows and 10 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study author
+#' * \code{pub_year}: year of publication
+#' * \code{country}: country where experiment was conducted
+#' * \code{color}: control color
+#' * \code{n}: sample size
+#' * \code{design}: within or between subjects design
+#' * \code{yi}: effect size (standardized mean difference)
+#' * \code{vi}: sampling variance (SE^2)
+#' @md
+#' @details Further details can be found at \href{https://psyarxiv.com/a4qdv/}{https://psyarxiv.com/a4qdv/}.
+#' 
+#' @usage data("dat_gnambs2020")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_gnambs2020"
+
+
+#' @title Studies on Out-Group Entitativity and Prejudice
+#' 
+#' @description Results from 21 studies, including 85 effect sizes (Fisher Z), on the effect of 
+#' out-Group entitativity and prejudice \insertCite{agadullina2018people}{blsmeta}.
+#' 
+#' 
+#' @format A data frame with 85 rows and 9 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study author
+#' * \code{pub_year}: year of publication
+#' * \code{n}: sample size
+#' * \code{design}: within or between subjects design
+#' * \code{ent_alpha}: entitativity score
+#' * \code{yi}: effect size (Fisher z)
+#' * \code{vi}: sampling variance (SE^2)
+#' @md
+#' 
+#' @details Further details can be found at \href{https://osf.io/8dw5y/}{https://osf.io/8dw5y/}.
+#' 
+#' @usage data("dat_agadullina2018")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_agadullina2018" 
+
+#' @title Studies on Social Identity Theory and Leadership: Leader Group Prototypicality
+#' 
+#' @description Results from 128 studies, including 251 effect sizes (Fisher Z), on the extent to which 
+#' a leader is perceived to embody shared social identity \insertCite{steffens2021advancing}{blsmeta}.
+#' 
+#' @format A data frame with 251 rows and 10 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id
+#' * \code{author}: study author
+#' * \code{n}: sample size
+#' * \code{design}: 0 = experimental; 1 = correlational
+#' * \code{published}: 0 = published; 1 = unpublished
+#' * \code{proto_strength}: 0 = ad-hoc; 1 = natural
+#' * \code{target.leader}: 0 = informal; 1 = formal
+#' * \code{yi}: effect size (Fisher z)
+#' * \code{vi}: sampling variance (SE^2)
+#' @md
+#' 
+#' @details Further details can be found at \href{https://osf.io/hxgpw/}{https://osf.io/hxgpw/} 
+#' 
+#' @usage data("dat_steffens2020")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_steffens2020"
+
+
+
+#' @title Studies on Shared Reading and Language Development
+#' 
+#' @description Results from 54 studies, including 316 effect sizes (Hedge's g), on the extent to which 
+#' shared reading impacts language development \insertCite{noble2019impact}{blsmeta}.
+#' 
+#' @format A data frame with 316 rows and 13 variables:
+#' 
+#' * \code{es_id}: effect size id
+#' * \code{study_id}: study id 
+#' * \code{author}: study author
+#' * \code{measure}: measure used in the study
+#' * \code{age}: age of participants, grouped into categories.
+#' * \code{ses}: socio-economic status
+#' * \code{experimenter}: who administered the test (pa)
+#' * \code{duratio}: number of weeks
+#' * \code{dialogic_reading}: dialogic reading
+#' * \code{follow_up}: follow up
+#' * \code{n}: sample size
+#' * \code{yi}: effect size (Hedge's g)
+#' * \code{vi}: sampling variance (SE^2)
+#' 
+#'  
+#' @md
+#' 
+#' @details Further details can be found at \href{https://osf.io/34xyw/}{https://osf.io/34xyw/} 
+#' 
+#' @usage data("dat_noble2018")
+#' 
+#' @references
+#' \insertAllCited{}
+"dat_noble2018"
