@@ -31,6 +31,8 @@ A dataset with 637 rows and 39 variables.
 data(dat_denizAksayli2019)
 }
 \description{
+To be filled in...
+
 \insertNoCite{aksayli2019cognitive}{blsmeta}
 }
 \references{

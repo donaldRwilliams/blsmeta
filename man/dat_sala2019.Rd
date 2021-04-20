@@ -29,6 +29,8 @@ A dataset with 1,555 rows and 15 variables.
 data(dat_sala2019)
 }
 \description{
+To be filled in...
+
 \insertNoCite{sala2019near}{blsmeta}
 }
 \references{

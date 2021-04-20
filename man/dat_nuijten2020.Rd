@@ -49,6 +49,8 @@ the first author of the study or the sample used}
 data(dat_nuijten2020)
 }
 \description{
+To be filled in...
+
 \insertNoCite{nuijten2020effect}{blsmeta}
 }
 \references{

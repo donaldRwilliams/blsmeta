@@ -138,7 +138,7 @@
 
 #' Studies from the Many Labs 2 project.
 #'
-#' A subset of the data collected in the Many Labs 2 project which conducted replications of 28 classic and contemporary findings in psychology.
+#' @description A subset of the data collected in the Many Labs 2 project which conducted replications of 28 classic and contemporary findings in psychology.
 #' The study examined the extent to which variability in replication success can be attributed to the study sample.
 #'
 #' @docType data
@@ -181,7 +181,9 @@
 #'
 #'
 #' Studies on the cognitive and academic benefits of Cogmed
-#'
+#' 
+#' @description To be filled in...
+#' 
 #' \insertNoCite{aksayli2019cognitive}{blsmeta}
 #' 
 #' @docType data
@@ -221,6 +223,8 @@
 
 
 #' Studies on the impact of working-memory training on near- and far-transfer measures
+#' 
+#' @description To be filled in...
 #'
 #' \insertNoCite{sala2019near}{blsmeta}
 #' 
@@ -258,8 +262,8 @@
 
 
 #' Studies on the Facial Feedback Literature
-#'
-#' \insertNoCite{coles2019meta}{blsmeta}
+#'  
+#' @description To be filled in.. \insertNoCite{coles2019meta}{blsmeta}
 #' 
 #' @docType data
 #'
@@ -298,6 +302,8 @@
 #'
 #'
 #' Meta-analytic data collected from
+#' 
+#' @description To be filled in...
 #'
 #' \insertNoCite{nuijten2020effect}{blsmeta}
 #'
@@ -358,51 +364,50 @@
 #'
 #' Meta-analytic data collected from
 #'
+#' 
+#' @description To be filled in.. \insertNoCite{gamble2019specificity}{blsmeta}
+#' 
+#' 
 #' @docType data
+#' 
 #'
-#' @usage data()
+#' @usage data(dat_gamble2019)
 #'
 #' @format 
 #'
 #' \describe{
-#'    \item{effect_id}{A numericwith unique identifiers for each unique effect size}
+#'    \item{study_id}{Unique id for study}
+#'    \item{samp_id}{Unique id for each sample}
+#'    \item{es_id}{Unique id for effect size}
+#'    \item{authors}{Authors of study}
+#'    \item{yi}{Effect size in r}
+#'    \item{vi}{Variance of effect size}
+#'    \item{ni}{Sample size of study}
+#'    \item{sex}{Proportion of study that was female}
+#'    \item{age}{Mean age of participants}
+#'    \item{dep_status}{Clinical status of depression}
+#'    \item{comorbid_anx}{Whehter comorbid with anxiety}
+#'    \item{emo_val}{Emotional valence of simulations}
+#'    \item{macro_micro}{Macro vs. micro specificity}
+#'    \item{cue_type}{Cue type}
+#'    \item{spec_rated}{Self- vs. researcher-rated specificity}
+#'    \item{dep_rated}{Self- vs. researcher-rated depression}
+#'    \item{cat_dim}{Categorical vs. dimensional designs}
+#'    \item{quality}{Study quality rating}
+#'    \item{published}{Published or not}
+#'    \item{mode}{Mode or prospection}
 #'    }
+#'
 #'
 #' @keywords datasets
 #'
 #' @references 
+#' \insertAllCited{}
 #' @source \href{https://osf.io/5wjb2/}{Open Science Framework}
 #'
 #'
-#'
+"dat_gamble2019"
 
 
 
 
-# future_thinking_depression %>% 
-#   # glimpse()
-#   filter(es_id != 0,
-#          redund !=1) %>% 
-#   as_tibble() %>% 
-#   select(
-#     study_id,
-#     samp_id,
-#     es_id,
-#     authors = ref,
-#     yi = es,
-#     vi = variance,
-#     ni = n,
-#     sex, # proportion female
-#     age, # what scale??
-#     dep_status, # clinical status of depression
-#     comorbid_anx, # comorbid anxiety
-#     emo_val, #emotional valence of  of simulations,
-#     macro_micro, # macro vs micro speficifity,
-#     cue_type, # cue type
-#     spec_rated, # specificity-self vs. researcher-rated
-#     dep_rated, # depression self vs researcher-rated
-#     cat_dim, # categorical vs. dimensional designs
-#     quality, # study quality rating
-#     published, # published or not
-#     mode # mode of prospection
-#   )
