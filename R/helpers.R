@@ -280,3 +280,23 @@ mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
 }
+
+pwr_lsmeta <- function(true_effect, n, tau2, type = "r", alpha){
+  vi <- 1/ (n - 3)
+  if(type == "r"){
+    z <- tanh(true_effect)
+  }
+  
+  wistar <- wi_star(vi = vi, tau2i = tau2)
+  
+  zcr = qnorm(p = 1-alpha, mean = 0, sd = 1)
+  
+  
+  pwr <- 1 - pnorm(
+    q = zcr, 
+    mean = (z/sqrt(1/ sum(wistar))), 
+    sd = 1)
+  
+  return(pwr)
+  
+}
