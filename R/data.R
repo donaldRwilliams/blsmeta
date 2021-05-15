@@ -411,7 +411,7 @@
 
 
 
-=======
+
 #' @title Studies on the Color Red and Cognitive Performance
 #' 
 #' @description Results from 22 studies, including 67 effect sizes (SMD), on the effect of 

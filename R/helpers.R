@@ -145,6 +145,8 @@ extract_beta <- function(x, mean_X){
   if(!any(is.na(mean_X))){
     betas[,1] <- betas[,1] - t(mean_X[-1] %*% t(betas[,-1]))
   }
+  
+  betas <- betas[,paste0("beta[", 1:ncol(betas), "]")]
   return(betas)
 }
 
@@ -161,29 +163,7 @@ extract_re_2 <- function(x){
 
 center_helper <- function(x){
   
-  unique_cols <- apply(x, 2, function(i) {
-    length(unique(i))
-  })
-  
-  if (length(unique_cols) == 1) {
-    x_new <- x
-    
-  } else {
-    
-    if (unique_cols[1] == 1) {
-      x_new <- as.matrix(x[,-1])
-      
-      for (i in seq_along(ncol(x_new))) {
-        x_new[, i] <- x_new[, i] - mean(x_new)
-        
-      }
-      x_new <- cbind(1, x_new)
-    } else {
-      x_mean <- NA
-      
-    }
-    
-  }
+  x_new <- cbind(x[,1], scale(x[,-1], scale = F))
   
   colnames(x_new) <- colnames(x)
   
@@ -281,21 +261,19 @@ mode <- function(x) {
   ux[which.max(tabulate(match(x, ux)))]
 }
 
-pwr_lsmeta <- function(true_effect, n, tau2, type = "r", alpha){
+pwr_lsmeta <- function(true_effect, n, 
+                       tau2, type = "r", alpha){
   vi <- 1/ (n - 3)
   if(type == "r"){
     z <- tanh(true_effect)
   }
   
   wistar <- wi_star(vi = vi, tau2i = tau2)
+  zscore <- (z/sqrt(1/ sum(wistar)))
+  zcr = qnorm(p = 1-alpha/2, mean = 0, sd = 1)
   
-  zcr = qnorm(p = 1-alpha, mean = 0, sd = 1)
   
-  
-  pwr <- 1 - pnorm(
-    q = zcr, 
-    mean = (z/sqrt(1/ sum(wistar))), 
-    sd = 1)
+  pwr <- 1 - pnorm(zcr - zscore)
   
   return(pwr)
   

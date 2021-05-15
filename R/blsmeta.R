@@ -82,7 +82,8 @@ blsmeta <- function(yi, vi,
     progress.bar = "text",
     n.burnin = 500,
     model.file = two_level,
-    parameters.to.save = params
+    parameters.to.save = params, 
+    n.thin = 1,
   )
   
   fit$mean_X <- mean_X

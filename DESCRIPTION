@@ -16,6 +16,7 @@ RdMacros: Rdpack
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
+  R2jags,
   Rdpack,
   nlme (>= 3.1-140)
 Suggests: 
