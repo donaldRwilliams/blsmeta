@@ -16,9 +16,10 @@ RdMacros: Rdpack
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
-  R2jags,
-  Rdpack,
-  nlme (>= 3.1-140)
-Suggests: 
+    methods,
+    nlme (>= 3.1-140),
+    R2jags,
 Depends: 
     R (>= 4.0.0)
+Biarch: true
+SystemRequirements: GNU make

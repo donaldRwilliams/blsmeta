@@ -2,23 +2,22 @@
 #'
 #' @param yi 
 #' @param vi 
+#' @param sei 
 #' @param es_id 
 #' @param mod 
-#' @param mod_tau_2
+#' @param mod_tau_2 
 #' @param iter 
 #' @param chains 
 #' @param data 
-#' @param save_ranef 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-blsmeta <- function(yi, vi, 
+blsmeta <- function(yi, vi, sei,
                     es_id = NULL, 
                     mod = ~ 1, 
                     mod_tau_2 = ~ 1, 
-                    save_ranef = TRUE,
                     iter = 5000,
                     chains = 4,
                     data){
@@ -62,18 +61,16 @@ blsmeta <- function(yi, vi,
   dat_list <- data_helper(data = data, arg = arg)
   
   design_mats <- list(X = X, X2 = X2)
-  
-  dat_list <- c(dat_list, 
+
+  dat_list <- c(dat_list,
                 prior_gamma_helper(X2),
-                prior_beta_helper(X, mean(dat_list$y)), 
+                prior_beta_helper(X, mean(dat_list$y)),
                 design_mats, K = k)
-  
-  if (save_ranef) {
-    params <- c("gamma", "beta", "re_2", "mu", 'ynew')
-  } else {
-    params <- c("gamma", "beta")
-  }
-  
+
+
+    params <- c("gamma", "beta", "re_2", "tau")
+
+
   fit <- jags(
     data = dat_list,
     DIC = FALSE,
@@ -82,16 +79,16 @@ blsmeta <- function(yi, vi,
     progress.bar = "text",
     n.burnin = 500,
     model.file = two_level,
-    parameters.to.save = params, 
+    parameters.to.save = params,
     n.thin = 1,
   )
-  
+
   fit$mean_X <- mean_X
   fit$xold <- xold
-  
+
   fit$mean_X2 <- mean_X2
   fit$x2old <- x2old
-  
+
   fit$save_ranef <- save_ranef
   fit$arg <- arg
   fit$dat <- data

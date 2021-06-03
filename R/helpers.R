@@ -1,5 +1,38 @@
 #' @importFrom nlme ranef
 #' @export ranef
+two_level_rjags <- "
+for (i in 1:K) {
+  # calculate precision
+  prec[i] <- 1 / v[i]
+  
+  # mean
+  mu[i] <-  fe_mu[i] + re_2[es_id[i]]
+  
+  # likelihood
+  y[i] ~ dnorm(mu[i], prec[i])
+  
+}
+
+# fixed effect
+for (i in  1:K) {
+  fe_mu[i] <- inprod(X_location[i, ], beta) 
+}
+
+for (i in 1:K) {
+    
+    # predict tau
+    tau_2[i] <- inprod(X_scale_2[i, ], gamma)
+    
+    # standard normal
+    std_norm_2[i] ~ dnorm(0, 1)
+    
+    # level 2 random effects
+    re_2[i] <- std_norm_2[i] * exp(tau_2[i])
+    
+  }
+
+"
+
 two_level <- function() {
   
   for (i in 1:K) {
@@ -277,4 +310,356 @@ pwr_lsmeta <- function(true_effect, n,
   
   return(pwr)
   
+}
+
+scale_level_three_prior <- function(prior, X_scale_3){
+  
+  mm_mod_names <- colnames(X_scale_3)
+  
+  p <- ncol(X_scale_3)
+  
+  params <- sapply(prior, "[[", "param")
+  
+  # default priors
+  if (length(params) == 0) {
+    
+    if (all(X_scale_3[, 1] == 1)) {
+      
+      default_prior <-
+        paste0("#",
+               mm_mod_names[1],
+               "\neta[1] ~ dnorm(", -2,
+               ", 1)\n")
+    } else {
+      
+      default_prior <-
+        paste0("#", mm_mod_names[1], "\neta[1] ~ dnorm(", -2, ", 1)\n")
+    }
+    
+    if (p > 1) {
+      
+      default_coef <-
+        paste0("\n#",
+               mm_mod_names[-1],
+               "\n",
+               "eta[",
+               2:p,
+               "] ~ dnorm(0, 0.001)",
+               collapse = "\n")
+      
+      default_prior <- paste0("#Defaults\n", 
+                              default_prior, 
+                              default_coef)
+      
+    }
+  } else {
+    
+    if(!all( params %in% mm_mod_names)){
+      stop("parameter not found in 'location'")
+    }
+    
+    user <- which(mm_mod_names %in% sapply(prior, "[[", "param"))
+    
+    default <- (1:p)[-user]
+    
+    if(length(user) == 1){
+      
+      default_prior <-
+        paste0("#User\n", "eta[1] ~ ", sapply(prior, "[[", "prior"))
+      
+    } else {
+      
+      if (default[1] == 1) {
+        
+        default <- default[-1]
+        
+        if (all(X_scale_3[, 1] == 1)) {
+          
+          default_int <-
+            paste0("#",
+                   mm_mod_names[1],
+                   "\neta[1] ~ dnorm(",
+                   round(mean(y), 3),
+                   ", 1)\n")
+        } else {
+          
+          default_int <-
+            paste0("#", mm_mod_names[1], "\neta[1] ~ dnorm(", 0, ", 0.001)\n")
+        }
+      } else {
+        
+        default_int <- ""
+      } 
+      if (p > 1) {
+        
+        default_coef <- paste0("\n#",
+                               mm_mod_names[default],
+                               "\n",
+                               "eta[",
+                               default,
+                               "] ~ dnorm(0, 0.001)",
+                               collapse = "\n")
+        
+        params <- sapply(prior, "[[", "param")
+        
+        user_coef <- paste0(
+          "\n#",
+          params,
+          "\neta[",
+          match(params,
+                mm_mod_names),
+          "]",
+          " ~ ",
+          sapply(prior, "[[", "prior"),
+          collapse = "\n"
+        )
+        
+        default_prior <-  paste0("#Defaults\n",
+                                 default_int,
+                                 default_coef,
+                                 "\n\n#Custom",
+                                 user_coef)
+      }
+    }
+  }
+  return(default_prior)
+}
+
+
+scale_level_two_prior <- function(prior, X_scale_2){
+  
+  mm_mod_names <- colnames(X_scale_2)
+  
+  p <- ncol(X_scale_2)
+  
+  params <- sapply(prior, "[[", "param")
+  
+  # default priors
+  if (length(params) == 0) {
+    
+    if (all(X_scale_2[, 1] == 1)) {
+      
+      default_prior <-
+        paste0("#",
+               mm_mod_names[1],
+               "\ngamma[1] ~ dnorm(",-2,
+               ", 1)\n")
+    } else {
+      
+      if(p == 1){
+        default_prior <-
+          paste0("#", mm_mod_names[1], "\ngamma[1] ~ dnorm(", -2, ", 1)\n")
+      } else {
+        default_prior <-
+          paste0("\n#", mm_mod_names, "\ngamma[", 1:p, "] ~ dnorm(", -2, ", 1)",collapse = "\n")
+      }
+    }
+    
+    if (p > 1 & length(params) != 0) {
+      
+      default_coef <-
+        paste0("\n#",
+               mm_mod_names[-1],
+               "\n",
+               "gamma[",
+               2:p,
+               "] ~ dnorm(0, 0.001)",
+               collapse = "\n")
+      
+      default_prior <- paste0("#Defaults\n", 
+                              default_prior, 
+                              default_coef)
+      
+    }
+  } else {
+    
+    if(!all( params %in% mm_mod_names)){
+      stop("parameter not found in 'location'")
+    }
+    
+    user <- which(mm_mod_names %in% sapply(prior, "[[", "param"))
+    
+    default <- (1:p)[-user]
+    
+    if(length(user) == 1){
+      
+      default_prior <-
+        paste0("#User\n", "gamma[1] ~ ", sapply(prior, "[[", "prior"))
+      
+    } else {
+      
+      if (default[1] == 1) {
+        
+        default <- default[-1]
+        
+        if (all(X_scale_2[, 1] == 1)) {
+          
+          default_int <-
+            paste0("#",
+                   mm_mod_names[1],
+                   "\ngamma[1] ~ dnorm(",
+                   round(mean(y), 3),
+                   ", 1)\n")
+        } else {
+          
+          default_int <-
+            paste0("#", mm_mod_names[1], "\ngamma[1] ~ dnorm(", 0, ", 0.001)\n")
+        }
+      } else {
+        
+        default_int <- ""
+      } 
+      if (p > 1) {
+        
+        default_coef <- paste0("\n#",
+                               mm_mod_names[default],
+                               "\n",
+                               "gamma[",
+                               default,
+                               "] ~ dnorm(0, 0.001)",
+                               collapse = "\n")
+        
+        params <- sapply(prior, "[[", "param")
+        
+        user_coef <- paste0(
+          "\n#",
+          params,
+          "\ngamma[",
+          match(params,
+                mm_mod_names),
+          "]",
+          " ~ ",
+          sapply(prior, "[[", "prior"),
+          collapse = "\n"
+        )
+        
+        default_prior <-  paste0("#Defaults\n",
+                                 default_int,
+                                 default_coef,
+                                 "\n\n#Custom",
+                                 user_coef)
+      }
+    }
+  }
+  return(default_prior)
+}
+
+location_prior <- function(prior, X_location, yi){
+  
+  mm_mod_names <- colnames(X_location)
+  
+  p <- ncol(X_location)
+  
+  params <- sapply(prior, "[[", "param")
+  
+  # default priors
+  if (length(params) == 0) {
+    
+    if (all(X_location[, 1] == 1)) {
+      
+      default_prior <-
+        paste0("#",
+               mm_mod_names[1],
+               "\nbeta[1] ~ dnorm(",
+               round(mean(y), 3),
+               ", 1)\n")
+    } else {
+      
+      default_prior <-
+        paste0("#", mm_mod_names[1], "\nbeta[1] ~ dnorm(", 0, ", 0.001)\n")
+    }
+    
+    if (p > 1) {
+      
+      default_coef <-
+        paste0("\n#",
+               mm_mod_names[-1],
+               "\n",
+               "beta[",
+               2:p,
+               "] ~ dnorm(0, 0.001)",
+               collapse = "\n")
+      
+      default_prior <- paste0("#Defaults\n", 
+                              default_prior, 
+                              default_coef)
+      
+    }
+  } else {
+    
+    if(!all( params %in% mm_mod_names)){
+      stop("parameter not found in 'location'")
+    }
+    
+    user <- which(mm_mod_names %in% sapply(prior, "[[", "param"))
+    
+    default <- (1:p)[-user]
+    
+    if(length(user) == 1){
+      
+      default_prior <-
+        paste0("#User\n", "beta[1] ~ ", sapply(prior, "[[", "prior"))
+      
+    } else {
+      
+      if (default[1] == 1) {
+        
+        default <- default[-1]
+        
+        if (all(X_location[, 1] == 1)) {
+          
+          default_int <-
+            paste0("#",
+                   mm_mod_names[1],
+                   "\nbeta[1] ~ dnorm(",
+                   round(mean(y), 3),
+                   ", 1)\n")
+        } else {
+          
+          default_int <-
+            paste0("#", mm_mod_names[1], "\nbeta[1] ~ dnorm(", 0, ", 0.001)\n")
+        }
+      } else {
+        
+        default_int <- ""
+      } 
+      if (p > 1) {
+        
+        default_coef <- paste0("\n#",
+                               mm_mod_names[default],
+                               "\n",
+                               "beta[",
+                               default,
+                               "] ~ dnorm(0, 0.001)",
+                               collapse = "\n")
+        
+        params <- sapply(prior, "[[", "param")
+        
+        user_coef <- paste0(
+          "\n#",
+          params,
+          "\nbeta[",
+          match(params,
+                mm_mod_names),
+          "]",
+          " ~ ",
+          sapply(prior, "[[", "prior"),
+          collapse = "\n"
+        )
+        
+        default_prior <-  paste0("#Defaults\n",
+                                 default_int,
+                                 default_coef,
+                                 "\n\n#Custom",
+                                 user_coef)
+      }
+    }
+  }
+  return(default_prior)
+}
+
+set_prior <- function(param, prior, dpar, level = NULL){
+  ls <- list(list(param = param , prior = prior, level = level))
+  names(ls) <- dpar
+  ls
 }

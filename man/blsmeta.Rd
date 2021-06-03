@@ -7,10 +7,10 @@
 blsmeta(
   yi,
   vi,
+  sei,
   es_id = NULL,
   mod = ~1,
   mod_tau_2 = ~1,
-  save_ranef = TRUE,
   iter = 5000,
   chains = 4,
   data
@@ -21,11 +21,13 @@ blsmeta(
 
 \item{vi}{}
 
+\item{sei}{}
+
 \item{es_id}{}
 
 \item{mod}{}
 
-\item{save_ranef}{}
+\item{mod_tau_2}{}
 
 \item{iter}{}
 
