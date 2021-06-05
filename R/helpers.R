@@ -241,6 +241,20 @@ extract_gamma <- function(x, mean_X2){
   return(gammas)
 }
 
+extract_eta <- function(x, mean_X2){
+  # x: posterior samples
+  etas <-
+    as.matrix(
+      x[, grep("eta", colnames(x))]
+    )
+  
+  # if intercept in model
+  if(!any(is.na(mean_X2))){
+    etas[,1] <- etaas[,1] - t(mean_X2[-1] %*% t(gammas[,-1]))
+  }
+  return(gammas)
+}
+
 extract_beta <- function(x, mean_X){
   # x: posterior samples
   betas <- 
@@ -812,4 +826,69 @@ set_prior <- function(param, prior, dpar, level = NULL){
     gammas[, 1] <- gammas[, 1] - t(object$X_scale2_means[-1] %*% t(gammas[, -1]))
   }
   return(gammas)
+}
+
+
+.extract_eta <- function(object){
+  x <- .extract_samples(object)
+  p <- ncol(object$X_scale3)
+  
+  if(p == 1){ 
+  etas <- 
+    as.matrix(
+      x[, grep("eta", colnames(x))][,2]
+    )
+  } else {
+    etas <- 
+      as.matrix(
+        x[, paste0("eta[",1:p, "]")]
+      )
+    
+  }
+ 
+  if(ncol(etas) > 1 & all(object$X_scale3[, 1] == 1)) {
+    etas[, 1] <- etas[, 1] - t(object$X_scale3_means[-1] %*% t(etas[, -1]))
+  }
+  return(etas)
+}
+
+print.blsmeta <- function(x, ...) {
+  
+  if(x$model == "fe"){
+    cat("  Model: Fixed-Effects\n")
+    cat("Studies:", nrow(x$X_location), "\n")
+    cat(paste0( "Samples: ", x$chains *  x$iter, " (", x$chains," chains)", "\n"))
+    cat("Formula:", paste0( x$mods_f, collapse = " "), "\n")
+    cat("------\n")
+    betas <- .extract_betas(x)
+    
+    ess <- coda::effectiveSize(.extract_betas(x))
+    rhat <- coda::gelman.diag(x$posterior_samples)
+    
+    beta_summary <- 
+      cbind.data.frame(
+        format(round(
+          data.frame(
+            apply(betas, 2, mean),
+            apply(betas, 2, sd),
+            t(apply(betas, 2, quantile,  c(0.05, 0.95))),
+            rhat$psrf[,1]
+          ), digits = 2), nsmall = 2),
+        round(ess))
+    
+    colnames(beta_summary) <- c("Post.mean", 
+                                "Post.sd", 
+                                "Cred.lb", 
+                                "Cred.ub", 
+                                "Rhat", 
+                                "ESS")
+    
+    rownames( beta_summary) <- colnames(x$X_location)
+    cat("Location:\n")
+    print(beta_summary)
+    cat("\n------\n")
+  }
+  
+  cat("Date:", date(), "\n")
+  
 }
