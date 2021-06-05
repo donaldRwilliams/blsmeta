@@ -8,11 +8,16 @@ blsmeta(
   yi,
   vi,
   sei,
-  es_id = NULL,
-  mod = ~1,
-  mod_tau_2 = ~1,
+  es_id,
+  study_id,
+  mods = ~1,
+  mods_scale2 = ~1,
+  mods_scale3 = ~1,
+  prior = NULL,
   iter = 5000,
+  warmup = 1000,
   chains = 4,
+  log_linear = TRUE,
   data
 )
 }
@@ -25,13 +30,23 @@ blsmeta(
 
 \item{es_id}{}
 
-\item{mod}{}
+\item{study_id}{}
 
-\item{mod_tau_2}{}
+\item{mods}{}
+
+\item{mods_scale2}{}
+
+\item{mods_scale3}{}
+
+\item{prior}{}
 
 \item{iter}{}
 
+\item{warmup}{}
+
 \item{chains}{}
+
+\item{log_linear}{}
 
 \item{data}{}
 }

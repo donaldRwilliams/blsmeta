@@ -4,94 +4,231 @@
 #' @param vi 
 #' @param sei 
 #' @param es_id 
-#' @param mod 
-#' @param mod_tau_2 
+#' @param study_id 
+#' @param mods 
+#' @param mods_scale2 
+#' @param mods_scale3 
+#' @param prior 
 #' @param iter 
+#' @param warmup 
 #' @param chains 
+#' @param log_linear 
 #' @param data 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-blsmeta <- function(yi, vi, sei,
-                    es_id = NULL, 
-                    mod = ~ 1, 
-                    mod_tau_2 = ~ 1, 
-                    iter = 5000,
-                    chains = 4,
-                    data){
+blsmeta <- function(yi, vi, 
+                    sei, 
+                    es_id, 
+                    study_id, 
+                    mods = ~ 1, 
+                    mods_scale2 = ~ 1, 
+                    mods_scale3 = ~ 1, 
+                    prior = NULL,
+                    iter = 5000, 
+                    warmup = 1000, 
+                    chains = 4, 
+                    log_linear = TRUE,
+                    data) {
   
-  arg <- match.call()
+  args <- match.call()
   
   k <- nrow(data)
   
-  if(is.null( arg$es_id ) ){
-    arg$es_id <- 1:k
-  }
-  
-  if(!isTRUE(all.equal(es_id, 1:k))) {
-    arg$es_id <- 1:k
-  }
-  
-  if( is.null( arg$mod ) ){
-    X <- model.matrix(~ 1, data)
-    xold <- X
-    mean_X <- 1
+  # fixed effects model
+  if (is.null(args$es_id)) {
+    if (is.null(args$mods)) {
+      X_location <- model.matrix( ~ 1, data)
+      X_location_old <- X_location
+      X_location_means <- 1
+      
+    } else {
+      X_location <- model.matrix(mods, data)
+      
+      if (all(X_location[, 1] == 1)) {
+        center_X <- center_helper(X_location)
+        X_location <- center_X$x
+        X_location_old <- center_X$xold
+        X_location_means <- center_X$x_mean
+        
+      } else {
+        X_location_old <- X_location
+        X_location_means <- NULL
+      }
+    }
+    
+    prior_location <- lapply(which(names(prior) == "location"), 
+                             function(x){ prior[[x]] })
+    
+    dat_list <- data_helper(data = data, arg = args)
+    
+    prior <- location_prior(prior_location,
+                   X_location = X_location,
+                   yi = dat_list$y)
+    
+    model_code <- paste0("model{\n", fe_rjags,
+                         "\n", "#location priors\n",
+                          prior, 
+                         "\n}")
+    
+    design_mats <- list(X_location = X_location)
+    
+    dat_list_jags <- c(dat_list , design_mats, K = k)
+    
+    params <- c("beta")
+
+    message("blsmeta: Adaption")
+    suppressWarnings({
+      fit <- jags.model(file = textConnection(model_code),
+                      data = dat_list_jags,
+                      n.chains = chains, 
+                      quiet = TRUE)
+      })
+    
+    message("blsmeta: Posterior Sampling")
+    
+    samps <- coda.samples(fit,
+                          variable.names = params,
+                          n.iter = iter + warmup)
+    
+    message("blsmeta: Finished")
+    
+    returned_object <- list(posterior_samples = samps, 
+                            X_location = X_location,  
+                            X_location_old = X_location_old, 
+                            X_location_means = X_location_means,
+                            args  = args, 
+                            chains =  chains,
+                            iter = iter,
+                            warmup = warmup,
+                            prior = prior,
+                            model = "fe", 
+                            mods_f = mods) 
   } else {
-    X <- model.matrix(mod, data)
-    center_X <- center_helper(X)
-    X <- center_X$x
-    xold <- center_X$xold
-    mean_X <- center_X$x_mean
+    # two level
+    if(is.null(args$study_id)){
+      if(is.null(args$mods)){
+        X_location <- model.matrix(~ 1, data)
+        X_location_old <- X_location
+        X_location_means <- 1
+      } else {
+        X_location <- model.matrix(mods, data)
+        if(all(X_location[, 1] == 1)){
+          center_X <- center_helper(X_location)
+          X_location <- center_X$x
+          X_location_old <- center_X$xold
+          X_location_means <- center_X$x_mean
+        } else {
+          X_location_old <- X_location
+          X_location_means <- NULL
+        }
+      }
+      
+      if(is.null(args$mods_scale2)){
+        X_scale2 <- model.matrix(~ 1, data)
+        X_scale2_old <- X_scale2
+        X_scale2_means <- 1
+      } else {
+        X_scale2 <- model.matrix(mods_scale2, data)
+        if(all(X_scale2[, 1] == 1)){
+          center_X <- center_helper(X_scale2)
+          X_scale2 <- center_X$x
+          X_scale2_old <- center_X$xold
+          X_scale2_means <- center_X$x_mean
+        } else {
+          X_scale2_old <- X_scale2
+          X_scale2_means <- NULL
+        }
+      }
+      
+      prior_location <- lapply(which(names(prior) == "location"), 
+                               function(x){ prior[[x]] })
+      
+      prior_scale2 <- lapply(which(names(prior) == "scale"), 
+                               function(x){ prior[[x]] })
+      
+      dat_list <- data_helper(data = data, arg = args)
+      
+      design_mats <- list(X_location = X_location, 
+                          X_scale_2 = X_scale2)
+      
+      dat_list_jags <- c(dat_list , design_mats, K = k)
+      
+      prior_location <- location_prior(prior_location,
+                                       X_location = X_location,
+                                       yi = dat_list$y)
+      
+      prior_scale2 <- scale_level_two_prior(prior_scale2,
+                                            X_scale_2 = X_scale2)
+      
+      
+      priors <- paste0("#location priors\n", 
+                       prior_location, 
+                       "\n\n#scale level two priors\n",  
+                       prior_scale2)
+      
+      model_code <- paste0("model{\n", two_level_rjags,
+                           "\n", 
+                           priors, 
+                           "\n}")
+      
+      
+      params <- c("beta", "gamma", "re_2", "tau_2")
+      
+      message("blsmeta: Adaption")
+      suppressWarnings({
+        fit <- jags.model(file = textConnection(model_code),
+                          data = dat_list_jags,
+                          n.chains = chains, 
+                          quiet = TRUE)
+      })
+      
+      message("blsmeta: Posterior Sampling")
+      
+      samps <- coda.samples(fit,
+                            variable.names = params,
+                            n.iter = iter + warmup)
+      
+      message("blsmeta: Finished")
+      
+      returned_object <- list(posterior_samples = samps, 
+                              X_location = X_location,  
+                              X_location_old = X_location_old, 
+                              X_location_means = X_location_means,
+                              X_scale2 = X_scale2,  
+                              X_scale2_old = X_scale2_old, 
+                              X_scale2_means = X_scale2_means,
+                              args  = args, 
+                              chains =  chains,
+                              iter = iter,
+                              warmup = warmup,
+                              prior = prior,
+                              model = "two_level", 
+                              mods_f = mods, 
+                              mods_scale2_f = mods_scale2) 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      # three level
+    } else {
+      
+      
+      
+      
+    }
+    
   }
-  
-  if(is.null(arg$mod_tau_2)) {
-    X2 <- model.matrix( ~ 1, data)
-    x2old <- X2
-    mean_X2 <- 1
-  } else {
-    X2 <- model.matrix(mod_tau_2, data)
-    center_X2 <- center_helper(X2)
-    X2 <- center_X2$x
-    x2old <- center_X2$xold
-    mean_X2 <- center_X2$x_mean
-  }
-  
-  dat_list <- data_helper(data = data, arg = arg)
-  
-  design_mats <- list(X = X, X2 = X2)
-
-  dat_list <- c(dat_list,
-                prior_gamma_helper(X2),
-                prior_beta_helper(X, mean(dat_list$y)),
-                design_mats, K = k)
-
-
-    params <- c("gamma", "beta", "re_2", "tau")
-
-
-  fit <- jags(
-    data = dat_list,
-    DIC = FALSE,
-    n.chains = chains,
-    n.iter = iter + 500,
-    progress.bar = "text",
-    n.burnin = 500,
-    model.file = two_level,
-    parameters.to.save = params,
-    n.thin = 1,
-  )
-
-  fit$mean_X <- mean_X
-  fit$xold <- xold
-
-  fit$mean_X2 <- mean_X2
-  fit$x2old <- x2old
-
-  fit$save_ranef <- save_ranef
-  fit$arg <- arg
-  fit$dat <- data
-  class(fit) <- c("rjags", "blsmeta")
-  return(fit)
+  class(returned_object) <- "blsmeta"
+  return(returned_object)
 }
