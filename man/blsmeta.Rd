@@ -2,7 +2,7 @@
 % Please edit documentation in R/blsmeta.R
 \name{blsmeta}
 \alias{blsmeta}
-\title{Title}
+\title{Bayesian Meta-Analysis via (Mixed-Effects) Location-Scale Models}
 \usage{
 blsmeta(
   yi,
@@ -54,5 +54,7 @@ blsmeta(
 
 }
 \description{
-Title
+Fit meta-analytic models, including fixed-effects, two-level,
+and three-level random-effects models. Moderators can be
+included for both location and scale parameters.
 }

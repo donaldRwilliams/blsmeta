@@ -3,6 +3,7 @@
 S3method(coef,blsmeta)
 S3method(fitted,blsmeta)
 S3method(predict,blsmeta)
+S3method(print,blsmeta)
 S3method(ranef,blsmeta)
 export(bayes_H2)
 export(bayes_I2)

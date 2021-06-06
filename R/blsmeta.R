@@ -1,5 +1,9 @@
-#' Title
-#'
+#' @title Bayesian Meta-Analysis via (Mixed-Effects) Location-Scale Models
+#' 
+#' @description Fit meta-analytic models, including fixed-effects, two-level, 
+#'              and three-level random-effects models. Moderators can be 
+#'              included for both location and scale parameters.
+#' 
 #' @param yi 
 #' @param vi 
 #' @param sei 
@@ -17,7 +21,6 @@
 #'
 #' @return
 #' @export
-#'
 #' @examples
 blsmeta <- function(yi, vi, 
                     sei, 
