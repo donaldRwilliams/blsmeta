@@ -360,7 +360,8 @@ blsmeta <- function(yi, vi,
                               mods_f = mods, 
                               mods_scale2_f = mods_scale2, 
                               mods_scale3_f = mods_scale3, 
-                              dat_list = dat_list) 
+                              dat_list = dat_list, 
+                              model_code = model_code) 
       
       
   }
