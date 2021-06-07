@@ -151,8 +151,8 @@ is,
     #> ------
     #> Date: Mon Jun 07 12:30:18 2021 
 
-Notice that that `n` is negative, implying that studies with larger
-sample sizes are more consistent (i.e., less heterogeneity).
+Notice that that `n` parameter is negative, implying that studies with
+larger sample sizes are more consistent (i.e., less heterogeneity).
 
 # Three-Level Model
 
