@@ -85,7 +85,7 @@ if the level two variable is not provided.
     #> Date: Mon Jun 07 12:21:07 2021 
 
 In the not too distant future (this was written on 6/7/21), it will be
-possible to compare those effects (e.g., `colorgreen - colorwhte`).
+possible to compare those effects (e.g., `colorgreen - colorwhite`).
 
 ## Two-Level Model
 
