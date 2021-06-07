@@ -153,12 +153,15 @@ is,
 
 Notice that that `n` parameter is negative, implying that studies with
 larger sample sizes are more consistent (i.e., less heterogeneity).
+Soon, there will be a function to predict that heterogeneity, say, at
+particular values of `n` (this will also include uncertainty, which is a
+key advantage of Bayesian location-scale modeling)
 
 # Three-Level Model
 
 Three-level location-scale meta-analysis is fully implemented as well.
 The key is providing the `study_id` argument, which is the higher level
 grouping variable that the effect sizes are nested within. This
-accomodates dependent effect sizes.
+accommodates dependent effect sizes.
 
 More examples coming soon :-)
