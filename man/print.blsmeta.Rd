@@ -4,12 +4,14 @@
 \alias{print.blsmeta}
 \title{Print \code{blsmeta} Objects}
 \usage{
-\method{print}{blsmeta}(x, ...)
+\method{print}{blsmeta}(x, cred = 0.95, ...)
 }
 \arguments{
 \item{x}{An object of class \code{blsmeta}}
 
-\item{...}{Ignored}
+\item{cred}{numeric. credible interval (defaults to \code{0.95}).}
+
+\item{...}{currently ignored.}
 }
 \description{
 Print \code{blsmeta} Objects

@@ -55,7 +55,7 @@ including moderator(s) for level two variance component
 including moderator(s) for level three variance component
 (or "scale"). By default, an intercept only model is fitted
 (i.e., \code{mods = ~ 1}), resulting in the customary estimate
-(assumed constant across studies)}
+(assumed constant across studies). See \strong{Details}.}
 
 \item{prior}{one or more \code{blsmetaprior} objects created by
 \code{set_prior}.}
@@ -101,6 +101,14 @@ this can be changed by setting \code{log_linear = FALSE}. In this case,
 a half Student-t prior is employed which is then similar to the R
 package \strong{brms}. Note that a log-linear model is required when
 moderators are included in \code{mods_scale2} and \code{mods_scale3}.
+
+\strong{mods_scale3}
+
+Moderators for \code{mods_scale3} are inherently level 3 predictors.
+This means that the study-level characteristic cannot \strong{not} vary within study.
+For example, with, say, 100 effect sizes from 25 studies, this variance component is
+predicted with only the 25 studies. To do so, the first row of every study
+is used by default.
 }
 \note{
 Three-level meta-analyses are described in \insertCite{van2013three;textual}{blsmeta},

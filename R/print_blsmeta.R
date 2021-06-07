@@ -121,7 +121,6 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     cat("Scale3 Formula:", paste0( x$mods_scale3_f, collapse = " "), "\n")
     cat("------\n")
     
-    
     betas <- .extract_beta(x)
     betas_rhat <- lapply(1:x$chains , function(i){
       x$posterior_samples[[i]][,grep("beta", coda::varnames(x$posterior_samples))]
@@ -129,9 +128,7 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     
     betas_rhat <- coda::gelman.diag(betas_rhat, multivariate = FALSE)
     
-    
     gammas <- .extract_gamma(x)
-    
     if(ncol(gammas)==1 | !all(x$X_scale2[,1] ==1)){
       gammas <- exp(gammas)
     }
@@ -141,8 +138,6 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     })
     
     gammas_rhat <- coda::gelman.diag(gammas_rhat, multivariate = FALSE)
-    
-    
     
     etas <- .extract_eta(x)
     
