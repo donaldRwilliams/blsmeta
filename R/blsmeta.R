@@ -63,6 +63,14 @@
 #' 
 #' @details
 #' 
+#' "\strong{Scale}"
+#' 
+#' The scale corresponds to the variance of a normal distribution. However,
+#' in **blsmeta** it is modeled on the standard deviation scale. As a 
+#' result, the reported estimates are also on the standard deviation 
+#' (log) scale. To make sense of the estimates, it is helpful to 
+#' use the predict function.
+#' 
 #' \strong{log_linear}
 #' 
 #' In the two and three-level models, by default a log-linear model is fitted
@@ -86,8 +94,9 @@
 #' 
 #' @note 
 #' Three-level meta-analyses are described in \insertCite{van2013three;textual}{blsmeta}, 
-#' \insertCite{cheung2014modeling}{blsmeta}, and \insertCite{assink2016fitting}{blsmeta}.
-#' They allow for modeling dependent effect sizes (several from the same study).
+#' \insertCite{cheung2014modeling;textual}{blsmeta}, and 
+#' \insertCite{assink2016fitting;textual}{blsmeta}.They allow for modeling dependent 
+#' effect sizes (several from the same study).
 #' 
 #' 
 #' @references
