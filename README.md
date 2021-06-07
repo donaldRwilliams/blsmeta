@@ -157,7 +157,7 @@ Soon, there will be a function to predict that heterogeneity, say, at
 particular values of `n` (this will also include uncertainty, which is a
 key advantage of Bayesian location-scale modeling)
 
-# Three-Level Model
+## Three-Level Model
 
 Three-level location-scale meta-analysis is fully implemented as well.
 The key is providing the `study_id` argument, which is the higher level
