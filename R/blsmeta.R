@@ -364,6 +364,8 @@ blsmeta <- function(yi, vi,
       }
       
       
+      
+      
       prior_location <- lapply(which(names(prior) == "location"), 
                                function(x){ prior[[x]] })
       
@@ -374,7 +376,17 @@ blsmeta <- function(yi, vi,
                              function(x){ prior[[x]] })
       
       dat_list <- data_helper(data = data, arg = args)
-
+      
+      dat_check <- data
+      
+      dat_check$study_id_new <-  dat_list$study_id
+      
+      ids <- unique(dat_list$study_id)
+      
+      if(!all(check_level_3(mods_scale3, dat_check = dat_check) == 1)){
+        stop("invalid level 3 moderator. see documentation.")
+      }
+      
       design_mats <- list(X_location = X_location, 
                           X_scale_2 = X_scale2, 
                           X_scale_3 = X_scale3)

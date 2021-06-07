@@ -851,6 +851,23 @@ set_prior <- function(param, prior, dpar, level = NULL){
   return(etas)
 }
 
+check_level_3 <- function(x, dat_check){
+  ids <- unique(dat_check$study_id_new)
+  preds <- labels(terms(x))
+  
+  unlist(
+    lapply(seq_along(preds), function(z){
+      lapply(ids, function(x) {
+        length((unique( subset(dat_check, 
+                               study_id_new == ids[x], 
+                               select = preds[1])))[,1])
+      })
+      
+    }
+    ))
+  
+}
+
 globalVariables(c("K","X", 
                   "X2", "es_id", 
                   "etas", "gammas", 
