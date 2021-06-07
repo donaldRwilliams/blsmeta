@@ -1,13 +1,18 @@
 #' Print \code{blsmeta} Objects
-#'
+#' 
 #' @param x An object of class \code{blsmeta}
-#' @param ... Ignored
+#' 
+#' @param cred numeric. credible interval (defaults to \code{0.95}).
+#' 
+#' @param ... currently ignored.
 #'
+#' 
 #' @export
 #'
 #'@importFrom stats quantile sd
-print.blsmeta <- function(x, ...) {
-  
+print.blsmeta <- function(x, cred = 0.95, ...) {
+  lb <- (1 - cred) / 2
+  ub <- 1 - lb
   if(x$model == "fe"){
     cat("Model: Fixed-Effects\n")
     cat("Studies:", nrow(x$X_location), "\n")
