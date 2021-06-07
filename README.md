@@ -169,7 +169,7 @@ More examples coming soon :-)
 ## MCMC Metafor
 
 The package **metafor** is perhaps the gold-standard for meta-analysis
-in *R*. In **blsmeta**, it is possible to sample from the posterior
+in `R`. In **blsmeta**, it is possible to sample from the posterior
 distribution of a model originally estimated with **metafor** (`rma`
 objects are currently supported).
 
