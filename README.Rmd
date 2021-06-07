@@ -31,7 +31,7 @@ include more functions over the coming weeks
 (merged from other branches), culminating in the official release.
 
 Below, there are some simple examples demonstrating how to use **blsmeta**.
-In the future, there will lots of examples showcasing the utility
+In the future, there will be several examples showcasing the utility
 of scale modeling in meta-analysis.
 
 ## Packages
@@ -98,5 +98,74 @@ fit_fe
 In the not too distant future (this was written on  6/7/21), it
 will be possible to compare those effects (e.g., `colorgreen - colorwhte`).
 
-## Random-Effects Model
-A two level meta-analysis is implemented with
+## Two-Level Model
+## Overall Effect
+A two-level random-effects meta-analysis is implemented with
+
+```
+fit_re <- blsmeta(yi = yi, vi = vi, 
+                  es_id = es_id,
+                  data = gnambs2020)
+
+# results
+fit_re
+
+#> Model: Two-Level
+#> Studies: 67 
+#> Samples: 20000 (4 chains)
+#> Location Formula: ~ 1 
+#> Scale Formula: ~ 1 
+#> ------
+#> Scale:
+#>               Post.mean Post.sd Cred.lb Cred.ub Rhat
+#> sd(Intercept)      0.10    0.06    0.02    0.22 1.00
+
+#> Location:
+#>             Post.mean Post.sd Cred.lb Cred.ub Rhat
+#> (Intercept)     -0.08    0.03   -0.14   -0.02 1.00
+
+#> ------
+#> Date: Mon Jun 07 12:26:24 2021 
+```
+Notice the argument `es_id`, which corresponds to the effect size id 
+(`1:k`, where `k` is the number of studies).
+
+## Scale Moderator
+It is possible to predict the between-study variance (or "scale"), that is,
+
+```
+fit_re <- blsmeta(yi = yi, vi = vi, 
+                  es_id = es_id,
+                  mods_scale2 = ~ n, 
+                  data = gnambs2020)
+
+# results
+fit_re
+
+#> Model: Two-Level
+#> Studies: 67 
+#> Samples: 20000 (4 chains)
+#> Location Formula: ~ 1 
+#> Scale Formula: ~ n 
+#> ------
+#> Scale:
+#>             Post.mean Post.sd Cred.lb Cred.ub Rhat
+#> (Intercept)      0.01    0.42   -0.77    0.88 1.03
+#> n               -0.03    0.01   -0.05   -0.01 1.03
+
+#> Location:
+#>             Post.mean Post.sd Cred.lb Cred.ub Rhat
+#> (Intercept)     -0.06    0.03   -0.11    0.00 1.00
+
+#> ------
+#> Date: Mon Jun 07 12:30:18 2021 
+```
+Notice that that `n` is negative, implying that studies with larger sample 
+sizes are more consistent (i.e., less heterogeneity).
+
+# Three-Level Model
+Three-level location-scale meta-analysis is fully implemented as well. The key is providing the `study_id` argument, which is the higher level grouping variable 
+that the effect sizes are nested within. This accomodates dependent 
+effect sizes.
+
+More examples coming soon :-)
