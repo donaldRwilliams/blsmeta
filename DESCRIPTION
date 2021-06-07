@@ -27,5 +27,7 @@ Imports:
     rjags (>= 4-10)
 Depends: 
     R (>= 4.0.0)
+Suggests:
+    metafor (>= 3.0-1)
 Biarch: true
 SystemRequirements: GNU make

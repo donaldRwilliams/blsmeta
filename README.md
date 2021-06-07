@@ -151,7 +151,7 @@ is,
     #> ------
     #> Date: Mon Jun 07 12:30:18 2021 
 
-Notice that that `n` parameter is negative, implying that studies with
+Notice that the `n` parameter is negative, implying that studies with
 larger sample sizes are more consistent (i.e., less heterogeneity).
 Soon, there will be a function to predict that heterogeneity, say, at
 particular values of `n` (this will also include uncertainty, which is a

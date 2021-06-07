@@ -1,3 +1,32 @@
+#' @title MCMC Sampling for \code{rma} Objects
+#' 
+#' @description The package **metafor** is perhaps the gold-standard for 
+#'              meta-analysis in \code{R}. This function allows for sampling 
+#'              from the posterior distribution of a model originally estimated
+#'              with **metafor**.
+#'
+#' @param object an object of class \code{rma}.
+#' 
+#' @param data data frame containing the variables in the model.
+#' 
+#' @param ... Currently ignored
+#'
+#' @return An object of class \code{blsmeta} (see \code{\link[blsmeta]{blsmeta}})
+#' 
+#' @note This function works for any kind of model fitted with \code{rma}.
+#' 
+#' @export
+#'
+#' @examples
+#' library(metafor)
+#' library(psymetadata)
+#' 
+#' fit <- mcmc_rma(rma(yi = yi, vi = vi, 
+#'                 method = "FE",
+#'                 data = gnambs2020), 
+#'                 data = gnambs2020)
+#'
+#' fit
 mcmc_rma <- function(object, data, ...){
   
   if (object$method == "FE") {
