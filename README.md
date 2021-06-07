@@ -166,7 +166,7 @@ accommodates dependent effect sizes.
 
 More examples coming soon :-)
 
-## MCMC Metafor
+## MCMC metafor
 
 The package **metafor** is perhaps the gold-standard for meta-analysis
 in `R`. In **blsmeta**, it is possible to sample from the posterior
