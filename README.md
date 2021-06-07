@@ -22,7 +22,7 @@ Below, there are some simple examples demonstrating how to use
 **blsmeta**. In the future, there will lots of examples showcasing the
 utility of scale modeling in meta-analysis.
 
-## Fixed-Effects Model
+## Packages
 
     # install for data
     if (!require('psymetadata')){
@@ -30,7 +30,9 @@ utility of scale modeling in meta-analysis.
       }
     library(psymetadata)
     library(blsmeta)
-    
+
+## Fixed-Effects Model
+
     # fit model
     fit_fe <- blsmeta(yi = yi, vi = vi, 
                       data = gnambs2020)
