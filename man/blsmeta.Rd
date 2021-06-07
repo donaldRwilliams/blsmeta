@@ -58,7 +58,7 @@ including moderator(s) for level three variance component
 (assumed constant across studies)}
 
 \item{prior}{one or more \code{blsmetaprior} objects created by
-\code{\link[blsmeta]{set_prior}}.}
+\code{set_prior}.}
 
 \item{iter}{numeric. The number of posterior samples per chain
 (defaults to \code{5000}, excluding \code{warmup}).}
@@ -76,7 +76,8 @@ See \strong{Details}.}
 \item{data}{data frame containing the variables in the model.}
 }
 \value{
-
+An object of class \code{blsmeta}. This is used internally,
+and it is not all that useful otherwise.
 }
 \description{
 Fit meta-analytic models, including fixed-effects, two-level,
@@ -87,8 +88,34 @@ is accomplished with mixed-effects location-scale modeling
 idea extended to meta-analysis in
 \insertCite{williams2021putting;textual}{blsmeta}.
 }
+\details{
+\strong{log_linear}
+
+In the two and three-level models, by default a log-linear model is fitted
+to the random-effects variances ("scale"). When no moderators are included in
+\code{mods_scale2} and \code{mods_scale3}, this is an intercept only model
+(the "scale" is constant across the \code{k} studies).
+
+To use a different prior distribution (as opposed to the default log-normal),
+this can be changed by setting \code{log_linear = FALSE}. In this case,
+a half Student-t prior is employed which is then similar to the R
+package \strong{brms}. Note that a log-linear model is required when
+moderators are included in \code{mods_scale2} and \code{mods_scale3}.
+}
+\note{
+Three-level meta-analyses are described in \insertCite{van2013three;textual}{blsmeta},
+\insertCite{cheung2014modeling}{blsmeta}, and \insertCite{assink2016fitting}{blsmeta}.
+They allow for modeling dependent effect sizes (several from the same study).
+}
 \examples{
-# soon
+# data
+library(psymetadata)
+
+fit <- blsmeta(yi = yi, vi = vi, 
+               es_id = es_id, 
+               data = gnambs2020, 
+               chains = 2)
+               
 }
 \references{
 \insertAllCited{}

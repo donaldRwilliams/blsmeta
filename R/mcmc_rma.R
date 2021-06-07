@@ -1,13 +1,3 @@
-#' Title
-#'
-#' @param object 
-#' @param data 
-#' @param ... 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 mcmc_rma <- function(object, data, ...){
   
   if (object$method == "FE") {

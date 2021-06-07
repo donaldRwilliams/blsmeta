@@ -1,23 +1,29 @@
 Package: blsmeta
 Title: Bayesian Location-Scale Meta-Analysis
-Version: 1.0.0
+Version: 0.1.0
 Authors@R: 
    c(person("Donald", "Williams", email = "drwwilliams@ucdavis.edu", role = c("aut", "cre")),
              person("Josue", "Rodriguez", email = "jerrodriguez@ucdavis.edu ", role = "aut"))
 Description: Fit Bayesian meta-analytic models, including fixed-effects, two-level, 
     and three-level random-effects models. Moderators can be 
-    included for both the location and scale parameters.
+    included for both the location and scale parameters. This is accomplished 
+    with mixed-effects loction-scaled modeling <doi:10.1111/j.1541-0420.2007.00924.x>, 
+    with the basic idea extended to meta-analysis in <doi:10.31234/osf.io/9vkqy>. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RdMacros: Rdpack
+RdMacros: 
+    Rdpack,
+    mathjaxr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
     coda (>= 0.19-4),
+    mathjaxr (>= 1.4-0),
     methods,
     psymetadata (>= 1.0.0),
     nlme (>= 3.1-140),
+    Rdpack (>= 2.1.2),
     rjags (>= 4-10)
 Depends: 
     R (>= 4.0.0)

@@ -44,7 +44,7 @@
 #'             (assumed constant across studies)
 #' 
 #' @param prior one or more \code{blsmetaprior} objects created by 
-#'              \code{\link[blsmeta]{set_prior}}.
+#'              \code{set_prior}.
 #' 
 #' @param iter numeric. The number of posterior samples per chain 
 #'             (defaults to \code{5000}, excluding \code{warmup}).
@@ -60,14 +60,45 @@
 #'                   See \strong{Details}.
 #' 
 #' @param data data frame containing the variables in the model.
-#'
+#' 
+#' @details
+#' 
+#' \strong{log_linear}
+#' 
+#' In the two and three-level models, by default a log-linear model is fitted
+#' to the random-effects variances ("scale"). When no moderators are included in 
+#' \code{mods_scale2} and \code{mods_scale3}, this is an intercept only model 
+#' (the "scale" is constant across the \code{k} studies). 
+#' 
+#' To use a different prior distribution (as opposed to the default log-normal), 
+#' this can be changed by setting \code{log_linear = FALSE}. In this case,
+#' a half Student-t prior is employed which is then similar to the R 
+#' package \strong{brms}. Note that a log-linear model is required when 
+#' moderators are included in \code{mods_scale2} and \code{mods_scale3}.
+#' 
+#' @note 
+#' Three-level meta-analyses are described in \insertCite{van2013three;textual}{blsmeta}, 
+#' \insertCite{cheung2014modeling}{blsmeta}, and \insertCite{assink2016fitting}{blsmeta}.
+#' They allow for modeling dependent effect sizes (several from the same study).
+#' 
+#' 
 #' @references
 #' \insertAllCited{}
 #'   
-#' @return
+#' @return An object of class \code{blsmeta}. This is used internally,
+#' and it is not all that useful otherwise.
+#' 
 #' @export
 #' @examples
-#' # soon
+#' # data
+#' library(psymetadata)
+#' 
+#' fit <- blsmeta(yi = yi, vi = vi, 
+#'                es_id = es_id, 
+#'                data = gnambs2020, 
+#'                chains = 2)
+#'                
+#' @importFrom rjags jags.model coda.samples               
 blsmeta <- function(yi, vi, 
                     sei, 
                     es_id, 
