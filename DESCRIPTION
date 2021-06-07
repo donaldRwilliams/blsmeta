@@ -7,18 +7,18 @@ Authors@R:
 Description: Fit Bayesian meta-analytic models, including fixed-effects, two-level, 
     and three-level random-effects models. Moderators can be 
     included for both the location and scale parameters.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RdMacros: Rdpack
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
+    coda (>= 0.19-4),
     methods,
+    psymetadata (>= 1.0.0),
     nlme (>= 3.1-140),
-    rjags,
-    coda
+    rjags (>= 4-10)
 Depends: 
     R (>= 4.0.0)
 Biarch: true
