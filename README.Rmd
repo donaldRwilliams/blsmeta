@@ -172,3 +172,32 @@ that the effect sizes are nested within. This accommodates dependent
 effect sizes.
 
 More examples coming soon :-)
+
+## MCMC Metafor
+The package **metafor** is perhaps the gold-standard for 
+meta-analysis in *R*. In **blsmeta**, it is possible to sample from the 
+posterior distribution of a model originally estimated with **metafor** 
+(`rma` objects are currently supported).
+
+```
+library(metafor)
+
+fit <- mcmc_rma(rma(yi = yi, vi = vi, 
+                 method = "FE", data = gnambs2020), 
+                 data = gnambs2020)
+# results
+fit
+
+#> Model: Fixed-Effects
+#> Studies: 67 
+#> Samples: 20000 (4 chains)
+#> Formula: ~ 1 
+#> ------
+#> Location:
+#>             Post.mean Post.sd Cred.lb Cred.ub Rhat
+#> (Intercept)     -0.07    0.03   -0.12   -0.02 1.00
+
+#> ------
+#> Date: Mon Jun 07 13:27:13 2021 
+```
+This function works for any kind of model fitted with `rma`.
