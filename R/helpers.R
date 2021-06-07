@@ -858,5 +858,5 @@ globalVariables(c("K","X",
                   "std_norm_2", 
                   "p_beta",
                   "v", "vi", 
-                  "yi"))
+                  "yi", "p"))
 
