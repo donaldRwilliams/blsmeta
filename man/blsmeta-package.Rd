@@ -4,12 +4,19 @@
 \name{blsmeta-package}
 \alias{blsmeta}
 \alias{blsmeta-package}
-\title{blsmeta: What the Package Does (One Line, Title Case)}
+\title{blsmeta: Bayesian Location-Scale Meta-Analysis}
 \description{
-What the package does (one paragraph).
+Fit Bayesian meta-analytic models, including fixed-effects, two-level, 
+    and three-level random-effects models. Moderators can be 
+    included for both the location and scale parameters.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Donald Williams \email{drwwilliams@ucdavis.edu}
+
+Authors:
+\itemize{
+  \item Josue Rodriguez \email{jerrodriguez@ucdavis.edu }
+}
 
 }
 \keyword{internal}

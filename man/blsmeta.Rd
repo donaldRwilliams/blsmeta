@@ -22,33 +22,58 @@ blsmeta(
 )
 }
 \arguments{
-\item{yi}{}
+\item{yi}{vector with the observed effect sizes (length \code{k}).}
 
-\item{vi}{}
+\item{vi}{vector with the sampling variances (length \code{k}).
+Provide either \code{vi} or \code{sei}.}
 
-\item{sei}{}
+\item{sei}{vector with the sampling variances (length \code{k}).
+Provide either \code{vi} or \code{sei}.}
 
-\item{es_id}{}
+\item{es_id}{vector with the effect size ids (i.e., \code{1:k}). When
+provided, a two-level random-effects model is estimated.
+Whereas, when not specified, a fixed-effects model is estimated
+by default.}
 
-\item{study_id}{}
+\item{study_id}{vector with the study ids (length \code{k}). When provided,
+a three-level random-effects model is estimated
+(\code{es_id} is required). Note that the \code{yi}'s are
+assumed to be nested within \code{study_id}.}
 
-\item{mods}{}
+\item{mods}{an object of class \code{\link[stats]{formula}},
+including moderator(s) for the effect size. By default, an
+intercept only model is fitted (i.e., \code{mods = ~ 1}),
+resulting in the overall effect.}
 
-\item{mods_scale2}{}
+\item{mods_scale2}{an object of class \code{\link[stats]{formula}},
+including moderator(s) for level two variance component
+(or "scale"). By default, an intercept only model is fitted
+(i.e., \code{mods = ~ 1}), resulting in the customary estimate
+(assumed constant across studies).}
 
-\item{mods_scale3}{}
+\item{mods_scale3}{an object of class \code{\link[stats]{formula}},
+including moderator(s) for level three variance component
+(or "scale"). By default, an intercept only model is fitted
+(i.e., \code{mods = ~ 1}), resulting in the customary estimate
+(assumed constant across studies)}
 
-\item{prior}{}
+\item{prior}{one or more \code{blsmetaprior} objects created by
+\code{\link[blsmeta]{set_prior}}.}
 
-\item{iter}{}
+\item{iter}{numeric. The number of posterior samples per chain
+(defaults to \code{5000}, excluding \code{warmup}).}
 
-\item{warmup}{}
+\item{warmup}{numeric. The number of warmup samples, which are discarded
+(defaults to \code{1000}).}
 
-\item{chains}{}
+\item{chains}{numeric. The number of chains (defaults to \code{4})}
 
-\item{log_linear}{}
+\item{log_linear}{logical. Should the variance components be modeled on
+the log-scale (defaults to \code{TRUE})? This is
+applicable to the scale models with no moderators.
+See \strong{Details}.}
 
-\item{data}{}
+\item{data}{data frame containing the variables in the model.}
 }
 \value{
 
@@ -56,5 +81,15 @@ blsmeta(
 \description{
 Fit meta-analytic models, including fixed-effects, two-level,
 and three-level random-effects models. Moderators can be
-included for both location and scale parameters.
+included for both the location and scale parameters. This
+is accomplished with mixed-effects location-scale modeling
+\insertCite{@see for example @Hedeker2008}{blsmeta}, with the basic
+idea extended to meta-analysis in
+\insertCite{williams2021putting;textual}{blsmeta}.
+}
+\examples{
+# soon
+}
+\references{
+\insertAllCited{}
 }

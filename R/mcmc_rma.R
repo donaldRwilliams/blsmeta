@@ -11,6 +11,7 @@
 mcmc_rma <- function(object, data, ...){
   
   if (object$method == "FE") {
+    
     dat <- data.frame(yi = object$yi,
                       vi = object$vi)
     

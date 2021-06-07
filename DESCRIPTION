@@ -1,13 +1,12 @@
 Package: blsmeta
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Bayesian Location-Scale Meta-Analysis
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+   c(person("Donald", "Williams", email = "drwwilliams@ucdavis.edu", role = c("aut", "cre")),
+             person("Josue", "Rodriguez", email = "jerrodriguez@ucdavis.edu ", role = "aut"))
+Description: Fit Bayesian meta-analytic models, including fixed-effects, two-level, 
+    and three-level random-effects models. Moderators can be 
+    included for both the location and scale parameters.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
@@ -18,7 +17,8 @@ RoxygenNote: 7.1.1
 Imports:
     methods,
     nlme (>= 3.1-140),
-    R2jags,
+    rjags,
+    coda
 Depends: 
     R (>= 4.0.0)
 Biarch: true

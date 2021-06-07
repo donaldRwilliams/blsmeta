@@ -20,22 +20,19 @@ print.blsmeta <- function(x, ...) {
     rhat <- coda::gelman.diag(x$posterior_samples)
     
     beta_summary <- 
-      cbind.data.frame(
         format(round(
           data.frame(
             apply(betas, 2, mean),
             apply(betas, 2, sd),
-            t(apply(betas, 2, quantile,  c(0.05, 0.95))),
+            t(apply(betas, 2, quantile,  c(0.025, 0.975))),
             rhat$psrf[,1]
-          ), digits = 2), nsmall = 2),
-        round(ess))
+          ), digits = 2), nsmall = 2)
     
     colnames(beta_summary) <- c("Post.mean", 
                                 "Post.sd", 
                                 "Cred.lb", 
                                 "Cred.ub", 
-                                "Rhat", 
-                                "ESS")
+                                "Rhat")
     
     rownames( beta_summary) <- colnames(x$X_location)
     cat("Location:\n")
@@ -74,7 +71,7 @@ print.blsmeta <- function(x, ...) {
         data.frame(
           apply(betas, 2, mean),
           apply(betas, 2, sd),
-          t(apply(betas, 2, quantile,  c(0.05, 0.95))),
+          t(apply(betas, 2, quantile,  c(0.025, 0.975))),
           betas_rhat$psrf[,1]
         ), digits = 2), nsmall = 2)
     
@@ -83,7 +80,7 @@ print.blsmeta <- function(x, ...) {
         data.frame(
           apply(gammas, 2, mean),
           apply(gammas, 2, sd),
-          t(apply(gammas, 2, quantile,  c(0.05, 0.95))),
+          t(apply(gammas, 2, quantile,  c(0.025, 0.975))),
           gammas_rhat$psrf[,1]
         ), digits = 2), nsmall = 2)
     
@@ -168,7 +165,7 @@ print.blsmeta <- function(x, ...) {
         data.frame(
           apply(betas, 2, mean),
           apply(betas, 2, sd),
-          t(apply(betas, 2, quantile,  c(0.05, 0.95))),
+          t(apply(betas, 2, quantile,  c(0.025, 0.975))),
           betas_rhat$psrf[,1]
         ), digits = 2), nsmall = 2)
     
@@ -177,7 +174,7 @@ print.blsmeta <- function(x, ...) {
         data.frame(
           apply(gammas, 2, mean),
           apply(gammas, 2, sd),
-          t(apply(gammas, 2, quantile,  c(0.05, 0.95))),
+          t(apply(gammas, 2, quantile,  c(0.025, 0.975))),
           gammas_rhat$psrf[,1]
         ), digits = 2), nsmall = 2)
     
@@ -186,7 +183,7 @@ print.blsmeta <- function(x, ...) {
         data.frame(
           apply(etas, 2, mean),
           apply(etas, 2, sd),
-          t(apply(etas, 2, quantile,  c(0.05, 0.95))),
+          t(apply(etas, 2, quantile,  c(0.025, 0.975))),
           etas_rhat$psrf[,1]
         ), digits = 2), nsmall = 2)
     
