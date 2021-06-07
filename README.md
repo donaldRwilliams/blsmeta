@@ -50,4 +50,9 @@ utility of scale modeling in meta-analysis.
     #> (Intercept)     -0.07    0.03   -0.12   -0.02 1.00
     #>
     #> ------
-    #> Date: Mon Jun 07 12:03:56 2021
+    #> Date: Mon Jun 07 12:03:56 2021 
+
+There is an important difference from the **metafor** package, where, by
+default, a random-effects model is fitted. This is not the case in
+**blsmeta**, where, by default, a fixed-effects model will be estimated
+if the level two variable is not provided.
