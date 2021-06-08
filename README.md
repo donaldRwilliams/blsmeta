@@ -4,7 +4,7 @@
 # blsmeta: Bayesian Location-Scale Meta-Analysis
 
 <!-- badges: start --> [![Build
-Status](https://travis-ci.com/donaldRwilliams/blsmeta.svg?branch=master)](https://travis-ci.com/donaldRwilliams/blsmeta)
+Status](https://travis-ci.com/donaldRwilliams/blsmeta.svg?branch=main)](https://travis-ci.com/donaldRwilliams/blsmeta)
 <!-- badges: end -->
 
 Version 1 is forthcoming, say, by the end of June 2021.
