@@ -1,4 +1,5 @@
 #' @importFrom stats density model.matrix pnorm qnorm terms
+#' @importFrom methods is
 two_level_rjags <- "
 for (i in 1:K) {
   # calculate precision
@@ -860,6 +861,18 @@ set_prior <- function(param, prior, dpar, level = NULL){
   return(etas)
 }
 
+.extract_scale2 <- function(object){
+  x <- .extract_samples(object)
+  tau_2 <- x[, grep("tau_2", colnames(x))]
+  return(tau_2)
+}
+
+.extract_scale3 <- function(object){
+  x <- .extract_samples(object)
+  tau_3 <- x[, grep("tau_3", colnames(x))]
+  return(tau_3)
+}
+
 check_level_3 <- function(x, dat_check){
   ids <- unique(dat_check$study_id_new)
   preds <- labels(terms(x))
@@ -877,11 +890,29 @@ check_level_3 <- function(x, dat_check){
   
 }
 
+.summary_helper <- function(x, cred){
+  lb <- (1 - cred) / 2
+  ub <- 1 - lb
+  
+  dat <- data.frame(
+    Post.mean = apply(x, 2, mean),
+    Post.sd = apply(x, 2, sd),
+    Cred.lb = apply(x, 2,  quantile, probs = lb),
+    Cred.ub = apply(x, 2,  quantile, probs = ub)
+  )
+  
+  row.names(dat) <- 1:ncol(x)
+  
+  return(dat)
+  
+}
+
 globalVariables(c("K","X", 
                   "X2", "es_id", 
                   "etas", "gammas", 
                   "inprod", "p_gamma", 
                   "std_norm_2", 
+                  "k_per_study",
                   "study_id_new",
                   "p_beta",
                   "v", "vi", 

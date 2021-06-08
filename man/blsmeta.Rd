@@ -128,6 +128,7 @@ effect sizes (several from the same study).
 # data
 library(psymetadata)
 
+  
 fit <- blsmeta(yi = yi, vi = vi, 
                es_id = es_id, 
                data = gnambs2020, 
