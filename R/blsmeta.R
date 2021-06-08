@@ -110,12 +110,14 @@
 #' # data
 #' library(psymetadata)
 #' 
+#'   
 #' fit <- blsmeta(yi = yi, vi = vi, 
 #'                es_id = es_id, 
 #'                data = gnambs2020, 
 #'                chains = 2)
 #'                
-#' @importFrom rjags jags.model coda.samples               
+#' @importFrom rjags jags.model coda.samples    
+
 blsmeta <- function(yi, vi, 
                     sei, 
                     es_id, 
@@ -310,7 +312,8 @@ blsmeta <- function(yi, vi,
                               model = "two_level", 
                               mods_f = mods, 
                               mods_scale2_f = mods_scale2, 
-                              dat_list = dat_list) 
+                              dat_list = dat_list, 
+                              k = k) 
       # three level
     } else {
       
@@ -474,7 +477,8 @@ blsmeta <- function(yi, vi,
                               mods_scale2_f = mods_scale2, 
                               mods_scale3_f = mods_scale3, 
                               dat_list = dat_list, 
-                              model_code = model_code) 
+                              model_code = model_code, 
+                              k = k, J = J) 
       
       
   }
