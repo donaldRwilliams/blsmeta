@@ -16,12 +16,12 @@
 #' @param sei vector with the sampling variances (length \code{k}).
 #'            Provide either \code{vi} or \code{sei}.
 #' 
-#' @param es_id vector with the effect size ids (i.e., \code{1:k}). When 
+#' @param es_id numeric vector with the effect size ids (i.e., \code{1:k}). When 
 #'              provided, a two-level random-effects model is estimated. 
 #'              Whereas, when not specified, a fixed-effects model is estimated
 #'              by default.
 #' 
-#' @param study_id vector with the study ids (length \code{k}). When provided, 
+#' @param study_id numeric vector with the study ids (length \code{k}). When provided, 
 #'                 a three-level random-effects model is estimated 
 #'                 (\code{es_id} is required). Note that the \code{yi}'s are 
 #'                 assumed to be nested within \code{study_id}. 
@@ -314,9 +314,13 @@ blsmeta <- function(yi, vi,
       # three level
     } else {
       
-      lvl3 <- as.numeric(eval(args[[match("study_id", names(args))]], 
-                              envir = data))
+     
       
+      lvl3 <- eval(args[[match("study_id", names(args))]], 
+                              envir = data)
+      if(!is.numeric(lvl3)){
+        stop("study_id must be numeric.")
+      }
       dat3 <- cbind.data.frame(lvl3 = lvl3, data)
       dat3 <- dat3[!duplicated(dat3$lvl3),]
       J <- nrow(dat3)

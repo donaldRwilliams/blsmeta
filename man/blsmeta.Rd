@@ -30,12 +30,12 @@ Provide either \code{vi} or \code{sei}.}
 \item{sei}{vector with the sampling variances (length \code{k}).
 Provide either \code{vi} or \code{sei}.}
 
-\item{es_id}{vector with the effect size ids (i.e., \code{1:k}). When
+\item{es_id}{numeric vector with the effect size ids (i.e., \code{1:k}). When
 provided, a two-level random-effects model is estimated.
 Whereas, when not specified, a fixed-effects model is estimated
 by default.}
 
-\item{study_id}{vector with the study ids (length \code{k}). When provided,
+\item{study_id}{numeric vector with the study ids (length \code{k}). When provided,
 a three-level random-effects model is estimated
 (\code{es_id} is required). Note that the \code{yi}'s are
 assumed to be nested within \code{study_id}.}

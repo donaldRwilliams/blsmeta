@@ -1,4 +1,4 @@
-#' @importFrom stats density model.matrix pnorm qnorm
+#' @importFrom stats density model.matrix pnorm qnorm terms
 two_level_rjags <- "
 for (i in 1:K) {
   # calculate precision
@@ -168,8 +168,17 @@ data_helper <- function(data, arg){
   } 
   
   es_id <- as.numeric(eval(arg[[match("es_id", names(arg))]], envir = data))
+  es_id <- 1:length(es_id)
+  
   
   study_id <- as.numeric(eval(arg[[match("study_id", names(arg))]], envir = data))
+  
+  if(!is.numeric(study_id)){
+    stop("study_id must be numeric")
+  }
+  
+  study_id <- match(study_id, sort(unique(study_id)))
+  
   
   list(y = yi, 
        v = vi, 
@@ -873,6 +882,7 @@ globalVariables(c("K","X",
                   "etas", "gammas", 
                   "inprod", "p_gamma", 
                   "std_norm_2", 
+                  "study_id_new",
                   "p_beta",
                   "v", "vi", 
                   "yi", "p"))
