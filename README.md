@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/donaldRwilliams/blsmeta/workflows/R-CMD-check/badge.svg)](https://github.com/donaldRwilliams/blsmeta/actions)
+<!-- badges: start --> [![Build
+Status](https://travis-ci.com/donaldRwilliams/blsmeta.svg?branch=master)](https://travis-ci.com/donaldRwilliams/blsmeta)
 <!-- badges: end -->
 
 # blsmeta: Bayesian Location-Scale Meta-Analysis
