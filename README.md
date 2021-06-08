@@ -1,6 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/donaldRwilliams/blsmeta/workflows/R-CMD-check/badge.svg)](https://github.com/donaldRwilliams/blsmeta/actions)
+<!-- badges: end -->
+
 # blsmeta: Bayesian Location-Scale Meta-Analysis
 
 Version 1 is forthcoming, say, by the end of June 2021.
