@@ -1,11 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# blsmeta: Bayesian Location-Scale Meta-Analysis
+
 <!-- badges: start --> [![Build
 Status](https://travis-ci.com/donaldRwilliams/blsmeta.svg?branch=master)](https://travis-ci.com/donaldRwilliams/blsmeta)
 <!-- badges: end -->
-
-# blsmeta: Bayesian Location-Scale Meta-Analysis
 
 Version 1 is forthcoming, say, by the end of June 2021.
 
