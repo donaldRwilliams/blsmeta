@@ -22,6 +22,12 @@ Below, there are some simple examples demonstrating how to use
 **blsmeta**. In the future, there will be several examples showcasing
 the utility of scale modeling in meta-analysis.
 
+## Installing JAGS
+
+**blsmeta** uses the popular Bayesian software JAGS to estimate the
+models. It must be downloaded from the following link:
+<https://sourceforge.net/projects/mcmc-jags/files/>
+
 ## Packages
 
     # install for data

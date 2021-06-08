@@ -24,7 +24,6 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("donaldRwilliams/blsmeta")
 ```
-
 Note that the development version will be fully usable, in so far 
 as it will have been tested, documented, etc. It will gradually
 include more functions over the coming weeks 
@@ -33,6 +32,12 @@ include more functions over the coming weeks
 Below, there are some simple examples demonstrating how to use **blsmeta**.
 In the future, there will be several examples showcasing the utility
 of scale modeling in meta-analysis.
+
+
+## Installing JAGS
+**blsmeta** uses the popular Bayesian software JAGS to estimate the models. 
+It must be downloaded from the following link: [https://sourceforge.net/projects/mcmc-jags/files/](https://sourceforge.net/projects/mcmc-jags/files/)
+
 
 ## Packages
 ```
