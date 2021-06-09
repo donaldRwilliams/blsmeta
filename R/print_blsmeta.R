@@ -11,6 +11,8 @@
 #'
 #'@importFrom stats quantile sd
 print.blsmeta <- function(x, cred = 0.95, ...) {
+  if(class(x)[2] == "default"){
+  
   lb <- (1 - cred) / 2
   ub <- 1 - lb
   if(x$model == "fe"){
@@ -47,7 +49,8 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     cat(paste0("Samples: ", x$chains *  x$iter, " (", x$chains," chains)", "\n"))
     cat("Location Formula:", paste0( x$mods_f, collapse = " "), "\n")
     cat("Scale Formula:", paste0( x$mods_scale2_f, collapse = " "), "\n")
-    cat("------\n")
+    cat("Note: 'Scale' on standard deviation scale")
+    cat("\n------\n")
     
     betas <- .extract_beta(x)
     betas_rhat <- lapply(1:x$chains , function(i){
@@ -119,7 +122,8 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     cat("Location Formula:", paste0( x$mods_f, collapse = " "), "\n")
     cat("Scale2 Formula:", paste0( x$mods_scale2_f, collapse = " "), "\n")
     cat("Scale3 Formula:", paste0( x$mods_scale3_f, collapse = " "), "\n")
-    cat("------\n")
+    cat("Note: 'Scale' on standard deviation scale")
+    cat("\n------\n")
     
     betas <- .extract_beta(x)
     betas_rhat <- lapply(1:x$chains , function(i){
@@ -237,6 +241,11 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     print(beta_summary)
     cat("\n------\n")
   }
-  
+ 
   cat("Date:", date(), "\n")
+  
+  } else if(class(x)[2] == "confint"){
+    print(x$estimates)
+  }
+  
 }

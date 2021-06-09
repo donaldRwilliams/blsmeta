@@ -484,6 +484,6 @@ blsmeta <- function(yi, vi,
   }
     
   }
-  class(returned_object) <- "blsmeta"
+  class(returned_object) <- c("blsmeta", "default")
   return(returned_object)
 }

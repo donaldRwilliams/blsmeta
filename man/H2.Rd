@@ -59,7 +59,7 @@ fit <- blsmeta(yi, vi,
                es_id = es_id,
                data = gnambs2020)
 
-# compute I2 for all data
+# compute H2 for all data
 h2 <- H2(fit)
 
 # scale model
@@ -70,7 +70,7 @@ fit <- blsmeta(yi, vi,
 
 new_data <- data.frame(n = c(100, 150))
 
-# compute I2 for new data
+# compute H2 for new data
 h2 <- H2(fit, newdata_scale2 = new_data)
 }
 \references{
