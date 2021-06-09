@@ -245,7 +245,15 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
   cat("Date:", date(), "\n")
   
   } else if(class(x)[2] == "confint"){
-    print(x$estimates)
+    if(length(x) == 1) {
+      print(x$estimates)
+    } else {
+      cat("Level Two:\n")
+      print(x$level_2)
+      cat("\nLevel Three:\n")
+      print(x$level_3)
+      cat("\n------\n")
+      print(x$h2)
+    }
   }
-  
 }

@@ -180,7 +180,7 @@ blsmeta <- function(yi, vi,
     
     params <- c("beta")
 
-    message("blsmeta: Adaption (Fixed-Effects)")
+    message("blsmeta: Adaptation (Fixed-Effects)")
     
     suppressWarnings({
       fit <- jags.model(file = textConnection(model_code),
@@ -281,7 +281,7 @@ blsmeta <- function(yi, vi,
       
       params <- c("beta", "gamma", "re_2", "tau_2")
       
-      message("blsmeta: Adaption (Two-Level)")
+      message("blsmeta: Adaptation (Two-Level)")
       suppressWarnings({
         fit <- jags.model(file = textConnection(model_code),
                           data = dat_list_jags,
@@ -440,7 +440,7 @@ blsmeta <- function(yi, vi,
                   "tau_2", "re_3", 
                   "tau_3")
       
-      message("blsmeta: Adaption (Three-Level)")
+      message("blsmeta: Adaptation (Three-Level)")
       
       suppressWarnings({
         fit <- jags.model(file = textConnection(model_code),
