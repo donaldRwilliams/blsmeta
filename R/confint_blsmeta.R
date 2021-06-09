@@ -21,6 +21,13 @@
 #' @export
 #'
 #' @examples
+#' library(psymetadata)
+#' 
+#' fit_re <- blsmeta(yi = yi, vi = vi, 
+#'                   es_id = es_id,
+#'                   data = gnambs2020)
+#' 
+#' confint(fit_re)
 confint.blsmeta <- function(object, 
                             cred = 0.95, 
                             digits = 3, ...){
