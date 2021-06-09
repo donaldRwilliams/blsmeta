@@ -81,6 +81,8 @@ variance_yi <- function(object,
       }
   } else if (object$model == "three_level") {
     
+    k_per_study <- tapply(1:object$k , object$dat_list$study_id, length)
+    
     scale2 <- .extract_scale2(object)
     
     scale3 <- .extract_scale3(object)
