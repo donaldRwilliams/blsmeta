@@ -1,7 +1,7 @@
-#' @title I2 Heterogeneity Statistic
+#' @title H2 Heterogeneity Statistic
 #' 
-#' @description Compute I2 (total heterogeneity divided by total variability). 
-#' Note that the I2 formulation for three-level models is described in
+#' @description Compute H2 (total variability divided by sampling variability). 
+#' Note that the H2 formulation for three-level models was inspired by
 #' \insertCite{cheung2014modeling;textual}{blsmeta}.
 #' 
 #' 
@@ -26,9 +26,6 @@
 #' @param summary logical. Should the posterior samples be summarized 
 #'                 (defaults to \code{TRUE})?
 #' 
-#' @param percent logical. Should the results be percentages, as in **metafor**
-#'                 (defaults to \code{TRUE})?
-#' 
 #' @param digits numeric. The desired number of digits for the summarized 
 #'               estimates (defaults to \code{3}).
 #'                
@@ -50,8 +47,8 @@
 #'                es_id = es_id,
 #'                data = gnambs2020)
 #' 
-#' # compute I2 for all data
-#' i2 <- I2(fit)
+#' # compute H2 for all data
+#' h2 <- H2(fit)
 #' 
 #' # scale model
 #' fit <- blsmeta(yi, vi,
@@ -61,15 +58,14 @@
 #' 
 #' new_data <- data.frame(n = c(100, 150))
 #' 
-#' # compute I2 for new data
-#' i2 <- I2(fit, newdata_scale2 = new_data)
-I2 <- function(object, 
+#' # compute H2 for new data
+#' h2 <- H2(fit, newdata_scale2 = new_data)
+H2 <- function(object, 
                newdata_scale2 = NULL, 
                newdata_scale3 = NULL, 
                s2 = NULL,
                cred = 0.95,
                summary = TRUE,
-               percent = TRUE, 
                digits = 3) {
   
   if (!is(object, "blsmeta")) {
@@ -101,23 +97,19 @@ I2 <- function(object,
       
     }
     
-    
-    
-    i2 <-
+    h2 <-
       as.matrix(apply(scale2, 1, function(x) {
         i2 <- x / (x + s2)
-        if (percent) {
-          i2 <- i2 * 100
-        }
-        return(i2)
+        h2 <- 1 / (1 - i2)
+        return(h2)
       }))
     
     if (summary) {
-      if (ncol(i2) == 1) {
-        i2 <- .summary_helper(i2, cred = cred)
+      if (ncol(h2) == 1) {
+        h2 <- .summary_helper(h2, cred = cred)
       }
-      i2 <- .summary_helper(t(i2), cred = cred)
-      }
+      h2 <- .summary_helper(t(h2), cred = cred)
+    }
   } else if(object$model == "three_level"){
     if (is.null(newdata_scale2)) {
       scale2 <- exp(.extract_scale2(object))^2
@@ -134,11 +126,10 @@ I2 <- function(object,
     }
     
     if(missing(newdata_scale3)) {
+      scale3 <- .extract_scale3(object)
       
       k_per_study <- tapply(1:object$k , 
                             object$dat_list$study_id, length)
-      
-      scale3 <- .extract_scale3(object)
       
       level_3_sd <- 
         exp(
@@ -165,57 +156,50 @@ I2 <- function(object,
     
     tot_var <- scale3 + scale2
     
-   i2_2 <- as.matrix(
-   sapply(1:ncol(scale2), function(x){
-     i2 <- scale2[,x] / (tot_var[,x] + s2)
-     
-     if (percent) {
-       i2 <- i2 * 100
-     }
-     return(i2)
-     
-   }))
-   
-   i2_3 <- as.matrix(
-     sapply(1:ncol(scale3), function(x){
-       i2 <- scale3[,x] / (tot_var[,x] + s2)
-       if (percent) {
-         i2 <- i2 * 100
-       }
-       return(i2)
-       
-     }))
-   
-   if(summary){
-    i2 <- list()
-    if(ncol(i2_2) == 1){
-      i2_2 <- .summary_helper(i2_2, cred = cred)
-    } else {
-      i2_2 <- .summary_helper(i2_2, cred = cred)
-    }
-    if(ncol(i2_3) == 1){
-      i2_3 <- .summary_helper(i2_3, cred = cred)
-    } else {
-      i2_3 <- .summary_helper(i2_3, cred = cred)
-    }
+    h2_2 <- as.matrix(
+      sapply(1:ncol(scale2), function(x){
+        i2 <- scale2[,x] / (tot_var[,x] + s2)
+        h2 <- 1 / (1 - i2)
+        
+      }))
     
-    i2[[1]] <- i2_2
-    i2[[2]] <- i2_3
+    h2_3 <- as.matrix(
+      sapply(1:ncol(scale3), function(x){
+        i2 <- scale3[,x] / (tot_var[,x] + s2)
+        h2 <- 1 / (1 - i2)
+        return(h2)
+        
+      }))
     
-    i2 <- lapply(1:2, function(x) {
-      round(i2[[x]], digits = digits) }
-    )
-    
-    names(i2) <- c("level_two", "level_three")
-    
+    if(summary){
+      h2 <- list()
+      if(ncol(h2_2) == 1){
+        h2_2 <- .summary_helper(h2_2, cred = cred)
+      } else {
+        h2_2 <- .summary_helper(h2_2, cred = cred)
+      }
+      if(ncol(h2_3) == 1){
+        h2_3 <- .summary_helper(h2_3, cred = cred)
+      } else {
+        h2_3 <- .summary_helper(h2_3, cred = cred)
+      }
+      
+      h2[[1]] <- h2_2
+      h2[[2]] <- h2_3
+      
+      h2 <- lapply(1:2, function(x) {
+        round(h2[[x]], digits = digits) }
+      )
+      
+      names(h2) <- c("level_two", "level_three")
+      
     }
   } else {
-      stop("model not supported.")
-    }
+    stop("model not supported.")
+  }
   
- 
- 
-  return(i2)
+  
+  
+  return(h2)
 }
-
 
