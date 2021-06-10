@@ -39,6 +39,9 @@
 #' we refer interested users to \insertCite{williams2019putting;textual}{blsmeta} 
 #' and \insertCite{williams2020fine}{blsmeta}.
 #' 
+#' @references
+#' \insertAllCited{}  
+#' 
 #' @export
 #'
 #' @examples
@@ -50,9 +53,9 @@
 #'                data = gnambs2020)
 #' 
 #' 
-#' iccs <- icc(object = fit, 
+#' iccs <- ICC(object = fit, 
 #'             summary = TRUE)
-icc <- function(object, 
+ICC <- function(object, 
                 newdata_scale2 = NULL, 
                 newdata_scale3 = NULL, 
                 cred = 0.95,
