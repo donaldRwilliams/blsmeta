@@ -50,9 +50,9 @@
 #'                data = gnambs2020)
 #' 
 #' 
-#' iccs <- icc(object = fit, 
+#' iccs <- ICC(object = fit, 
 #'             summary = TRUE)
-icc <- function(object, 
+ICC <- function(object, 
                 newdata_scale2 = NULL, 
                 newdata_scale3 = NULL, 
                 cred = 0.95,
