@@ -255,5 +255,11 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
       cat("\n------\n")
       print(x$h2)
     }
+    # end confint
+  } else if (class(x)[2] == "icc") {
+    cat("Level Two:\n")
+    print(x$icc$level_two)
+    cat("\nLevel Three:\n")
+    print(x$icc$level_three)
   }
 }
