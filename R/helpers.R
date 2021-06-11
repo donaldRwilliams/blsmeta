@@ -1,5 +1,8 @@
 #' @importFrom stats density model.matrix pnorm qnorm terms
 #' @importFrom methods is
+#' 
+#' @importFrom nlme ranef 
+#' @export ranef 
 two_level_rjags <- "
 for (i in 1:K) {
   # calculate precision
@@ -906,6 +909,28 @@ check_level_3 <- function(x, dat_check){
   return(dat)
   
 }
+
+.extract_re_2 <- function(object){
+  
+  x <- .extract_samples(object)
+  
+  re_2 <- as.matrix(
+    x[, grep("re_2", colnames(x) )]
+  )
+  return(re_2)
+}
+
+
+.extract_re_3 <- function(object){
+  
+  x <- .extract_samples(object)
+  
+  re_3 <- as.matrix(
+    x[, grep("re_3", colnames(x) )]
+  )
+  return(re_3)
+}
+
 
 globalVariables(c("K","X", 
                   "X2", "es_id", 

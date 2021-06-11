@@ -261,5 +261,19 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
     print(x$icc$level_two)
     cat("\nLevel Three:\n")
     print(x$icc$level_three)
-  }
+  } else if(class(x)[2] == "ranef"){
+    if(length(x$ranefs) != 2){
+      cat("Level Two:\n")
+      print(x$ranefs$level_two)
+    } else if(length(x$ranefs) == 2 ) {
+      cat("Level Two:\n")
+      print(x$ranefs$level_two)
+      cat("\nLevel Three:\n")
+      print(x$ranefs$level_three)
+
+    } 
+    
+}
+
+
 }

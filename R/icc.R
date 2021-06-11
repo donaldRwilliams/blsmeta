@@ -73,9 +73,9 @@ ICC <- function(object,
   
   if (is.null(newdata_scale2)) {
     scale2 <- exp(.extract_scale2(object))^2
-  } else {
-    if (!is.data.frame(newdata_scale2)) {
-      stop("newdata_scale2 must be a data.frame.")
+    } else {
+      if (!is.data.frame(newdata_scale2)) {
+        stop("newdata_scale2 must be a data.frame.")
     }
     
     mods_scale2_newdata <- model.matrix(object$mods_scale2_f,
@@ -87,7 +87,8 @@ ICC <- function(object,
   if(is.null(newdata_scale3)) {
     
     k_per_study <- tapply(1:object$k , 
-                          object$dat_list$study_id, length)
+                          object$dat_list$study_id, 
+                          length)
     
     scale3 <- .extract_scale3(object)
     
