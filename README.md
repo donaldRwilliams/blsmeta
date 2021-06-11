@@ -133,7 +133,7 @@ Notice the argument `es_id`, which corresponds to the effect size id
 
 A key feature of **blsmeta** is scale modeling that allows for
 predicting the between-study variance (or “scale”) with moderators (just
-like for the effect size or “locations”). In this following example,
+like for the effect size or “location”). In this following example,
 heterogeneity is predicted study size.
 
     fit_re <- blsmeta(yi = yi, vi = vi, 
@@ -190,7 +190,7 @@ moderator, that is,
 Notice `type = "sd"`, which ensures we are on the standard deviation
 scale (easier to interpret). The results indicate that there is quite a
 bit of heterogeneity in small studies, but it goes to practically zero
-as the study size increases.
+as study size increases.
 
 ## Three-Level Model
 

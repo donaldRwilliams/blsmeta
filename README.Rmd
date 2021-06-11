@@ -141,7 +141,7 @@ Notice the argument `es_id`, which corresponds to the effect size id
 ## Scale Moderator
 A key feature of **blsmeta** is scale modeling that allows for predicting 
 the between-study variance (or "scale") with moderators 
-(just like for the effect size or "locations"). In this following example, 
+(just like for the effect size or "location"). In this following example, 
 heterogeneity is predicted study size.
 
 ```
@@ -198,7 +198,7 @@ tau2(fit_re, type = "sd",
 ```
 Notice `type = "sd"`, which ensures we are on the standard deviation scale 
 (easier to interpret). The results indicate that there is quite a bit of
-heterogeneity in small studies, but it goes to practically zero as the 
+heterogeneity in small studies, but it goes to practically zero as 
 study size increases.
 
 
