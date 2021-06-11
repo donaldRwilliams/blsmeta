@@ -1,8 +1,8 @@
-#' @title Extract Group-Level Estimates
+#' @title Extract Random-Effect Estimates
 #' 
 #' @name ranef
 #' 
-#' @description Extract the group-level ("random") effects from 
+#' @description Extract the random-effects from 
 #' a \code{blsmeta} object.
 #'
 #' @param object An object of class \code{blsmeta}

@@ -50,7 +50,7 @@ models. It must be downloaded from the following link:
                       
     # results
     fit_fe
-    
+
     #> Model: Fixed-Effects
     #> Studies: 67 
     #> Samples: 20000 (4 chains)
@@ -73,10 +73,10 @@ if the level two variable is not provided.
     fit_fe <- blsmeta(yi = yi, vi = vi, 
                       mods = ~ 0 + color,
                       data = gnambs2020)
-    
+
     # results
     fit_fe
-    
+
     #> Model: Fixed-Effects
     #> Studies: 67 
     #> Samples: 20000 (4 chains)
@@ -89,7 +89,7 @@ if the level two variable is not provided.
     #> colorgray      -0.12    0.05   -0.22   -0.01 1.00
     #> colorgreen     -0.06    0.03   -0.13    0.00 1.00
     #> colorwhite      0.00    0.12   -0.23    0.22 1.00
-    
+
     #> ------
     #> Date: Mon Jun 07 12:21:07 2021 
 
@@ -105,10 +105,10 @@ A two-level random-effects meta-analysis is implemented with
     fit_re <- blsmeta(yi = yi, vi = vi, 
                       es_id = es_id,
                       data = gnambs2020)
-    
+
     # results
     fit_re
-    
+
     #> Model: Two-Level
     #> Studies: 67 
     #> Samples: 20000 (4 chains)
@@ -118,11 +118,11 @@ A two-level random-effects meta-analysis is implemented with
     #> Scale:
     #>               Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> sd(Intercept)      0.10    0.06    0.02    0.22 1.00
-    
+    #> 
     #> Location:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)     -0.08    0.03   -0.14   -0.02 1.00
-    
+    #?
     #> ------
     #> Date: Mon Jun 07 12:26:24 2021 
 
@@ -138,10 +138,10 @@ is,
                       es_id = es_id,
                       mods_scale2 = ~ n, 
                       data = gnambs2020)
-    
+
     # results
     fit_re
-    
+
     #> Model: Two-Level
     #> Studies: 67 
     #> Samples: 20000 (4 chains)
@@ -152,19 +152,39 @@ is,
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)      0.01    0.42   -0.77    0.88 1.03
     #> n               -0.03    0.01   -0.05   -0.01 1.03
-    
+    #>
     #> Location:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)     -0.06    0.03   -0.11    0.00 1.00
-    
+    #>
     #> ------
     #> Date: Mon Jun 07 12:30:18 2021 
 
 Notice that the `n` parameter is negative, implying that studies with
-larger sample sizes are more consistent (i.e., less heterogeneity).
-Soon, there will be a function to predict that heterogeneity, say, at
-particular values of `n` (this will also include uncertainty, which is a
-key advantage of Bayesian location-scale modeling)
+larger sample sizes are more consistent (i.e., less heterogeneity). That
+effect is on the log-scale, which is far from intuitive. To make sense
+of the scale model, it is possible to predict between-study
+heterogeneity at particular values of the moderator, that is,
+
+    tau2(fit_re, type = "sd", 
+         newdata_scale2 = data.frame(n = seq(20, 200, 20)))
+
+    #>   Post.mean Post.sd Cred.lb Cred.ub
+    #> 1      0.634   0.165   0.357   1.003
+    #> 2      0.378   0.083   0.226   0.553
+    #> 3      0.234   0.072   0.096   0.372
+    #> 4      0.149   0.063   0.037   0.273
+    #> 5      0.098   0.053   0.014   0.207
+    #> 6      0.065   0.043   0.005   0.161
+    #> 7      0.045   0.035   0.002   0.126
+    #> 8      0.031   0.028   0.001   0.100
+    #> 9      0.022   0.022   0.000   0.080
+    #> 10     0.015   0.018   0.000   0.063
+
+Notice `type = "sd"`, which ensures we are on the standard deviation
+scale (easier to interpret). The results indicate that there is quite a
+bit of heterogeneity in small studies, but it goes to practically zero
+as the study size increases.
 
 ## Three-Level Model
 
@@ -183,13 +203,13 @@ distribution of a model originally estimated with **metafor** (`rma`
 objects are currently supported).
 
     library(metafor)
-    
+
     fit <- mcmc_rma(rma(yi = yi, vi = vi, 
                      method = "FE", data = gnambs2020), 
                      data = gnambs2020)
     # results
     fit
-    
+
     #> Model: Fixed-Effects
     #> Studies: 67 
     #> Samples: 20000 (4 chains)
@@ -198,7 +218,7 @@ objects are currently supported).
     #> Location:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)     -0.07    0.03   -0.12   -0.02 1.00
-    
+
     #> ------
     #> Date: Mon Jun 07 13:27:13 2021 
 
