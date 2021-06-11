@@ -162,9 +162,13 @@ is,
 
 Notice that the `n` parameter is negative, implying that studies with
 larger sample sizes are more consistent (i.e., less heterogeneity). That
-effect is on the log-scale, which is far from intuitive. To make sense
-of the scale model, it is possible to predict between-study
-heterogeneity at particular values of the moderator, that is,
+effect is on the log-scale, which is far from intuitive.
+
+### Predicted Values
+
+To make sense of the scale model, it is possible to predict
+between-study heterogeneity at particular values of the moderator, that
+is,
 
     tau2(fit_re, type = "sd", 
          newdata_scale2 = data.frame(n = seq(20, 200, 20)))
