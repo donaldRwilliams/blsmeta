@@ -139,7 +139,9 @@ Notice the argument `es_id`, which corresponds to the effect size id
 (`1:k`, where `k` is the number of studies).
 
 ## Scale Moderator
-It is possible to predict the between-study variance (or "scale"), that is,
+A key feature of **blsmeta** is scale modeling that allows for predicting 
+the between-study variance (or "scale") with moderators. 
+In this follow example, heterogeneity is predicted study size.
 
 ```
 fit_re <- blsmeta(yi = yi, vi = vi, 
@@ -174,14 +176,14 @@ is on the log-scale, which is far from intuitive.
 
 
 ### Predicted Values
-To make sense of the scale model, it is possible to predict between-study 
-heterogeneity at particular values of the moderator, that is,
+To make sense of the scale model, it is possible to obtain predicted values of 
+between-study heterogeneity at particular values of the moderator, that is,
 
 ```
 tau2(fit_re, type = "sd", 
      newdata_scale2 = data.frame(n = seq(20, 200, 20)))
 
-#>   Post.mean Post.sd Cred.lb Cred.ub
+#>    Post.mean Post.sd Cred.lb Cred.ub
 #> 1      0.634   0.165   0.357   1.003
 #> 2      0.378   0.083   0.226   0.553
 #> 3      0.234   0.072   0.096   0.372
