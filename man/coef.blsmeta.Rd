@@ -30,5 +30,14 @@ Extract the group-specific coefficients, defined as
 the sum of the fixed effects and corresponding random effects.
 }
 \examples{
-...
+library(psymetadata)
+
+dat <- gnambs2020
+
+fit <- blsmeta(yi = yi,
+               vi = vi,
+               es_id = es_id,
+               data = dat)
+
+coef(fit)
 }

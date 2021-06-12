@@ -23,7 +23,16 @@
 #' @export
 #'
 #' @examples
-#' ...
+#' library(psymetadata)
+#' 
+#' dat <- gnambs2020
+#' 
+#' fit <- blsmeta(yi = yi,
+#'                vi = vi,
+#'                es_id = es_id,
+#'                data = dat)
+#'
+#' coef(fit)
 coef.blsmeta <- function(object, 
                          summary = TRUE, 
                          cred = 0.95, 
@@ -55,7 +64,7 @@ coef.blsmeta <- function(object,
     }  else {
       
       # intercept in model
-      if(all(fit$X_location[,1] == 1)){
+      if(all(object$X_location[,1] == 1)){
         
         coefs <- sapply(1:ncol(re_2), function(x) {
           

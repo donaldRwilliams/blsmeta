@@ -1,4 +1,4 @@
-#' @importFrom stats density model.matrix pnorm qnorm terms
+#' @importFrom stats density model.matrix pnorm qnorm terms coef
 #' @importFrom methods is
 #' 
 #' @importFrom nlme ranef 
