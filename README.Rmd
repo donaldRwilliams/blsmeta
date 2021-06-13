@@ -1,7 +1,5 @@
 ---
-output: 
-  github_document:
-    toc: true
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -37,6 +35,20 @@ include more functions over the coming weeks
 Below, there are some simple examples demonstrating how to use **blsmeta**.
 In the future, there will be several examples showcasing the utility
 of scale modeling in meta-analysis.
+
+
+-   [Installing JAGS](#installing-jags)
+-   [Packages](#packages)
+-   [Fixed-Effects Model](#fixed-effects-model)
+  -   [Overall Effect](#overall-effect)
+  -   [Moderator](#moderator)
+-   [Two-Level Model](#two-level-model)
+  -   [Overall Effect](#overall-effect-1)
+  -   [Scale Moderator](#scale-moderator)
+        -   [Predicted Values](#predicted-values)
+-   [Three-Level Model](#three-level-model)
+-   [MCMC metafor](#mcmc-metafor)
+
 
 
 ## Installing JAGS

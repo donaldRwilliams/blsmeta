@@ -1,18 +1,4 @@
 
--   [blsmeta: Bayesian Location-Scale
-    Meta-Analysis](#blsmeta-bayesian-location-scale-meta-analysis)
-    -   [Installing JAGS](#installing-jags)
-    -   [Packages](#packages)
-    -   [Fixed-Effects Model](#fixed-effects-model)
-        -   [Overall Effect](#overall-effect)
-        -   [Moderator](#moderator)
-    -   [Two-Level Model](#two-level-model)
-    -   [Overall Effect](#overall-effect-1)
-    -   [Scale Moderator](#scale-moderator)
-        -   [Predicted Values](#predicted-values)
-    -   [Three-Level Model](#three-level-model)
-    -   [MCMC metafor](#mcmc-metafor)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # blsmeta: Bayesian Location-Scale Meta-Analysis
@@ -38,6 +24,18 @@ culminating in the official release.
 Below, there are some simple examples demonstrating how to use
 **blsmeta**. In the future, there will be several examples showcasing
 the utility of scale modeling in meta-analysis.
+
+-   [Installing JAGS](#installing-jags)
+-   [Packages](#packages)
+-   [Fixed-Effects Model](#fixed-effects-model)
+-   [Overall Effect](#overall-effect)
+-   [Moderator](#moderator)
+-   [Two-Level Model](#two-level-model)
+-   [Overall Effect](#overall-effect-1)
+-   [Scale Moderator](#scale-moderator)
+    -   [Predicted Values](#predicted-values)
+-   [Three-Level Model](#three-level-model)
+-   [MCMC metafor](#mcmc-metafor)
 
 ## Installing JAGS
 
