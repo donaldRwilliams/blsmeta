@@ -14,8 +14,8 @@ Additionally, a key feature of **blsmeta** is “scale” modeling, which
 allows for predicting the variance components with moderators (e.g.,
 perhaps between-study variance is not constant across studies). As a
 result, heterogeneity statistics and prediction intervals are then a
-function of those same moderators-**fully characterizing variation in
-meta-analysis**.
+function of those same moderators, thereby **fully characterizing
+variation in meta-analysis**.
 
 Version 1 is forthcoming, say, by the end of June 2021.
 
