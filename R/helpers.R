@@ -1,8 +1,10 @@
 #' @importFrom stats density model.matrix pnorm qnorm terms coef
 #' @importFrom methods is
 #' 
+#' @importFrom nlme fixef
 #' @importFrom nlme ranef 
 #' @export ranef 
+#' @export fixef
 two_level_rjags <- "
 for (i in 1:K) {
   # calculate precision
