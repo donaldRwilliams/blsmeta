@@ -1,4 +1,18 @@
 
+-   [blsmeta: Bayesian Location-Scale
+    Meta-Analysis](#blsmeta-bayesian-location-scale-meta-analysis)
+    -   [Installing JAGS](#installing-jags)
+    -   [Packages](#packages)
+    -   [Fixed-Effects Model](#fixed-effects-model)
+        -   [Overall Effect](#overall-effect)
+        -   [Moderator](#moderator)
+    -   [Two-Level Model](#two-level-model)
+    -   [Overall Effect](#overall-effect-1)
+    -   [Scale Moderator](#scale-moderator)
+        -   [Predicted Values](#predicted-values)
+    -   [Three-Level Model](#three-level-model)
+    -   [MCMC metafor](#mcmc-metafor)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # blsmeta: Bayesian Location-Scale Meta-Analysis
@@ -122,7 +136,7 @@ A two-level random-effects meta-analysis is implemented with
     #> Location:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)     -0.08    0.03   -0.14   -0.02 1.00
-    #?
+    #>
     #> ------
     #> Date: Mon Jun 07 12:26:24 2021 
 
@@ -224,7 +238,7 @@ objects are currently supported).
     #> Location:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
     #> (Intercept)     -0.07    0.03   -0.12   -0.02 1.00
-
+    #>
     #> ------
     #> Date: Mon Jun 07 13:27:13 2021 
 
