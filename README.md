@@ -138,6 +138,7 @@ A two-level random-effects meta-analysis is implemented with
     #> Samples: 20000 (4 chains)
     #> Location Formula: ~ 1 
     #> Scale Formula: ~ 1 
+    #> Note: 'Scale' on standard deviation scale
     #> ------
     #> Scale:
     #>               Post.mean Post.sd Cred.lb Cred.ub Rhat
@@ -173,6 +174,7 @@ heterogeneity is predicted study size.
     #> Samples: 20000 (4 chains)
     #> Location Formula: ~ 1 
     #> Scale Formula: ~ n 
+    #> Note: 'Scale' on standard deviation scale
     #> ------
     #> Scale:
     #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
@@ -223,7 +225,37 @@ The key is providing the `study_id` argument, which is the higher level
 grouping variable that the effect sizes are nested within. This
 accommodates dependent effect sizes.
 
-More examples coming soon :-)
+    fit <-  blsmeta(yi = yi, 
+                    vi = vi, 
+                    es_id = es_id,
+                    study_id = study_id,
+                    data = gnambs2020)
+                  
+    fit
+
+    #> Model: Three-Level
+    #> Studies2: 67 
+    #> Studies3: 22 
+    #> Samples: 20000 (4 chains)
+    #> Location Formula: ~ 1 
+    #> Scale2 Formula: ~ 1 
+    #> Scale3 Formula: ~ 1 
+    #> Note: 'Scale' on standard deviation scale
+    #> ------
+    #> Scale2:
+    #>               Post.mean Post.sd Cred.lb Cred.ub Rhat
+    #> sd(Intercept)      0.06    0.04    0.01    0.15 1.00
+    #> 
+    #> Scale3:
+    #>               Post.mean Post.sd Cred.lb Cred.ub Rhat
+    #> sd(Intercept)      0.20    0.06    0.09    0.34 1.01
+    #> 
+    #> Location:
+    #>             Post.mean Post.sd Cred.lb Cred.ub Rhat
+    #> (Intercept)     -0.12    0.06   -0.25   -0.02 1.00
+    #> 
+    #> ------
+    #> Date: Sun Jun 13 11:27:08 2021 
 
 ## MCMC metafor
 
