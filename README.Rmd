@@ -17,6 +17,18 @@ knitr::opts_chunk$set(
 
 [![Build Status](https://www.travis-ci.com/donaldRwilliams/blsmeta.svg?branch=main)](https://travis-ci.com/donaldRwilliams/blsmeta)
 
+The goal of **blsmeta** is to provide a user-friendly interface for
+Bayesian meta-analysis, including fixed-effects, two-level, 
+and three-level (for dependent effect sizes) 
+random-effects models.
+
+Additionally, a key feature of **blsmeta** is "scale" modeling, 
+which allows for predicting the variance components with moderators 
+(e.g., perhaps between-study variance is not constant across studies). 
+As a result, heterogeneity statistics and prediction intervals are then a function of 
+those same moderators-**fully
+characterizing variation in meta-analysis**.
+
 
 Version 1 is forthcoming, say, by the end of June 2021. 
 
@@ -36,6 +48,7 @@ Below, there are some simple examples demonstrating how to use **blsmeta**.
 In the future, there will be several examples showcasing the utility
 of scale modeling in meta-analysis.
 
+## Table of Contents
 
 -   [Installing JAGS](#installing-jags)
 -   [Packages](#packages)
