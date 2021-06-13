@@ -39,7 +39,6 @@ the utility of scale modeling in meta-analysis.
 ## Table of Contents
 
 -   [Installing JAGS](#installing-jags)
--   [Packages](#packages)
 -   [Fixed-Effects Model](#fixed-effects-model)
     -   [Overall Effect](#overall-effect)
     -   [Moderator](#moderator)
