@@ -47,6 +47,7 @@ the utility of scale modeling in meta-analysis.
     -   [Scale Moderator](#scale-moderator)
         -   [Predicted Values](#predicted-values)
 -   [Three-Level Model](#three-level-model)
+    -   [Comparing Variance Components](#comparing-variance-components)
 -   [MCMC metafor](#mcmc-metafor)
 
 ## Installing JAGS
@@ -256,6 +257,35 @@ accommodates dependent effect sizes.
     #> 
     #> ------
     #> Date: Sun Jun 13 11:27:08 2021 
+
+### Comparing Variance Components
+
+One question might be whether one variance component is larger, which
+can be tested with the `linear_hypothesis` function.
+
+    linear_hypothesis(obj = fit, 
+                      cred = 0.90,
+                      lin_comb = "scale3_Intercept > scale2_Intercept",
+                      sub_model = "scale")
+                      
+    #> Hypotheses:
+    #>  C1: scale3_Intercept > scale2_Intercept 
+    #> ------ 
+    #> Posterior Summary:
+    #> 
+    #>    Post.mean Post.sd Cred.lb Cred.ub Pr.less Pr.greater
+    #> C1      1.27    0.73    0.14    2.51    0.03       0.97
+    #> ------ 
+    #> Note:
+    #> Pr.less: Posterior probability less than zero
+    #> Pr.greater: Posterior probability greater than zero
+
+These estimates are on the log-scale, and there is a 0.97 posterior
+probability that the level three variance component is larger than the
+level two variance component.
+
+In the future, it will be possible to compare these models with the
+Bayes factor.
 
 ## MCMC metafor
 
