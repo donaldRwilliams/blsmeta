@@ -208,7 +208,9 @@ blsmeta <- function(yi, vi,
                             prior = prior,
                             model = "fe", 
                             mods_f = mods, 
-                            dat_list = dat_list) 
+                            dat_list = dat_list,
+                            model_code = model_code
+                            ) 
   # two level
   } else {
   
@@ -313,6 +315,7 @@ blsmeta <- function(yi, vi,
                               mods_f = mods, 
                               mods_scale2_f = mods_scale2, 
                               dat_list = dat_list, 
+                              model_code = model_code, 
                               k = k) 
       # three level
     } else {
@@ -484,6 +487,7 @@ blsmeta <- function(yi, vi,
   }
     
   }
+ 
   class(returned_object) <- c("blsmeta", "default")
   return(returned_object)
 }
