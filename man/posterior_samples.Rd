@@ -26,13 +26,7 @@ object of class \code{blsmeta}
 }
 \details{
 Options for \code{param} depend on the model, but can included
-\code{beta} (fixed-effects for location),
-\code{gamma} (level-two log-linear scale model),
-\code{eta} (level-three log-linear scale model),
-\code{tau_2} (level-two variane components),
-\code{tau_3} (level-three variance components),
-\code{re_2} (level-two random-effects), and
-\code{re_3} (level-three random-effects).
+printed out by setting \code{print_names = TRUE}.
 
 Note the variance components, and log-linear coefficients are on
 the standard deviation scale.

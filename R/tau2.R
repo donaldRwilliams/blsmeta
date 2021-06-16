@@ -2,7 +2,7 @@
 #' 
 #' @description Typically, the variance components are assumed constant
 #' across the \code{k} studies in meta-analysis. When scale modeling,
-#' the variance components are function of
+#' the variance components are a function of
 #' moderators, which can be computed with this function 
 #' \insertCite{@see @williams2021putting}{blsmeta}.
 #' 
