@@ -848,10 +848,10 @@ set_prior <- function(param, prior, dpar, level = NULL){
   p <- ncol(object$X_scale3)
   
   if(p == 1){ 
-  etas <- 
-    as.matrix(
-      x[, grep("eta", colnames(x))][,2]
-    )
+    etas <- 
+      as.matrix(
+        x[,  "eta" ]
+      )
   } else {
     etas <- 
       as.matrix(
@@ -933,6 +933,67 @@ check_level_3 <- function(x, dat_check){
   return(re_3)
 }
 
+prior_helper_scale_2 <- function(prior, mm){
+  
+  prior_scale <- lapply(which(names(prior) == "scale"), 
+                        function(x){ prior[[x]] })
+  
+  prior_scale <- prior_scale[which(sapply( prior_scale, "[[", "level") == "two")]
+  
+  mm_mod_names <- colnames(mm)
+  
+  params <- sapply(prior_scale , "[[", "param")
+  
+  if(isFALSE( all(params %in% mm_mod_names))){
+    stop("param not found in scale prior (level-two)")
+  }
+  
+  user <- which(mm_mod_names %in% params)
+  
+  if(length(user) == 0){
+    defaults <- mm_mod_names
+  } else {
+    defaults <- mm_mod_names[-user]
+  }
+  
+  prior_ls <- list() 
+  
+  if(length(defaults) != 0){
+    for(i in 1:length(defaults)){
+      if(defaults[i] == "(Intercept)"){
+        prior_ls[[i]] <- paste0("#Intercept\n", 'gamma[1] ~ dnorm(-2, 1)\n')
+      } else {
+        prior_ls[[i]] <-  paste0("\n#", defaults[i], '\ngamma[', 
+                                 match(defaults[i], mm_mod_names), 
+                                 '] ~ dnorm(0, 1)\n' )
+      }
+    }
+  }
+  user_coef <- "\n"
+  
+  if (length(user) != 0) {
+    user_coef <- paste0(
+      "\n#",
+      params,
+      "\ngamma[",
+      match(params,
+            mm_mod_names),
+      "]",
+      " ~ ",
+      sapply(prior, "[[", "prior"),
+      collapse = "\n"
+    )
+  }
+  
+  paste0(unlist(prior_ls), user_coef, collapse = "")
+  
+}
+
+extract_list_items <- function(x, item, as_df = FALSE) {
+  out <- sapply(x, "[[", item)
+  if (as_df) out <- as.data.frame(out)
+  return(out)
+}
 
 globalVariables(c("K","X", 
                   "X2", "es_id", 
@@ -943,5 +1004,6 @@ globalVariables(c("K","X",
                   "study_id_new",
                   "p_beta",
                   "v", "vi", 
-                  "yi", "p"))
+                  "yi", "p", 
+                  "res_ids"))
 

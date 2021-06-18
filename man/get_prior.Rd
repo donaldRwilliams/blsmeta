@@ -26,5 +26,5 @@ fit <-  blsmeta(yi = yi,
                 es_id = es_id,
                 data = gnambs2020)
                 
-get_prior(object)
+get_prior(fit)
 }

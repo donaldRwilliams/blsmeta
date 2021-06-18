@@ -19,7 +19,7 @@
 #'                 es_id = es_id,
 #'                 data = gnambs2020)
 #'                 
-#' get_prior(object)
+#' get_prior(fit)
 get_prior <- function(object){
   cat(object$prior)
 }

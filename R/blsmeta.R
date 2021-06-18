@@ -252,8 +252,9 @@ blsmeta <- function(yi, vi,
       prior_location <- lapply(which(names(prior) == "location"), 
                                function(x){ prior[[x]] })
       
-      prior_scale2 <- lapply(which(names(prior) == "scale"), 
-                               function(x){ prior[[x]] })
+      # prior_scale2 <- lapply(which(names(prior) == "scale"), 
+                               # function(x){ prior[[x]] })
+      # dat_list <- list(y = gnambs2020$yi, v = gnambs2020$vi, es_id = gnambs2020$es_id)
       
       dat_list <- data_helper(data = data, arg = args)
       
@@ -266,14 +267,13 @@ blsmeta <- function(yi, vi,
                                        X_location = X_location,
                                        yi = dat_list$y)
       
-      prior_scale2 <- scale_level_two_prior(prior_scale2,
-                                            X_scale_2 = X_scale2)
-      
+      prior_scale2 <- prior_helper_scale_2(prior, X_scale2)
       
       priors <- paste0("#location priors\n", 
-                       prior_location, 
-                       "\n\n#scale level two priors\n",  
-                       prior_scale2)
+                       prior_location, "\n#scale level two priors\n",  
+                       prior_scale2 )
+            
+    
       
       model_code <- paste0("model{\n", two_level_rjags,
                            "\n", 
