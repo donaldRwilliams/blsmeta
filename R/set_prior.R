@@ -1,4 +1,25 @@
-set_prior <- function(param, prior, dpar, level = NULL){
+#' @title Assign Prior Distributions to Parameters
+#'
+#' @param param character string. Which parameter (e.g., \code{"(Intercept)"})? 
+#'        This \strong{must} match the column names of the model matrix.
+#' 
+#' @param prior character string. The desired prior distribution, following 
+#'              the JAGS formulation with the precision and not variance for 
+#'              the scale. See \strong{Details}.
+#' 
+#' @param dpar character string. Which distributional parameter? The options
+#'             include \code{location} (effect-size) and \code{scale} 
+#'             (variance component).
+#' 
+#' @param level character string. The level when \code{dpar = "scale"}. For example,
+#'              in a three-level model, set \code{level = "two"} for the level two 
+#'              scale model.
+#'
+#' @return A character string
+#' @export
+#'
+#' @examples
+assign_prior <- function(param, prior, dpar, level = NULL){
   ls <- list(list(param = param, 
                   prior = prior, 
                   level = level))

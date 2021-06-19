@@ -1,5 +1,7 @@
 #' @title Bayesian Meta-Analysis via (Mixed-Effects) Location-Scale Models
 #' 
+#' @rdname blsmeta 
+#'   
 #' @description Fit meta-analytic models, including fixed-effects, two-level, 
 #'              and three-level random-effects models. Moderators can be 
 #'              included for both the location and scale parameters. This 
@@ -160,16 +162,14 @@ blsmeta <- function(yi, vi,
       }
     }
     
-    prior_location <- lapply(which(names(prior) == "location"), 
-                             function(x){ prior[[x]] })
+    dat_list <- data_helper(data = data, 
+                            arg = args)
     
-    dat_list <- data_helper(data = data, arg = args)
+    prior  <- prior_helper_loc(prior = prior, 
+                               mm = X_location, 
+                               mu = mean(dat_list$y))
     
-    prior <- location_prior(prior_location,
-                   X_location = X_location,
-                   yi = dat_list$y)
-    
-    model_code <- paste0("model{\n", fe_rjags,
+   model_code <- paste0("model{\n", fe_rjags,
                          "\n", "#location priors\n",
                           prior, 
                          "\n}")
@@ -249,13 +249,6 @@ blsmeta <- function(yi, vi,
         }
       }
       
-      prior_location <- lapply(which(names(prior) == "location"), 
-                               function(x){ prior[[x]] })
-      
-      # prior_scale2 <- lapply(which(names(prior) == "scale"), 
-                               # function(x){ prior[[x]] })
-      # dat_list <- list(y = gnambs2020$yi, v = gnambs2020$vi, es_id = gnambs2020$es_id)
-      
       dat_list <- data_helper(data = data, arg = args)
       
       design_mats <- list(X_location = X_location, 
@@ -263,9 +256,9 @@ blsmeta <- function(yi, vi,
       
       dat_list_jags <- c(dat_list , design_mats, K = k)
       
-      prior_location <- location_prior(prior_location,
-                                       X_location = X_location,
-                                       yi = dat_list$y)
+      prior_location  <- prior_helper_loc(prior = prior, 
+                                          mm = X_location, 
+                                          mu = mean(dat_list$y))
       
       prior_scale2 <- prior_helper_scale_2(prior, X_scale2)
       
@@ -273,13 +266,10 @@ blsmeta <- function(yi, vi,
                        prior_location, "\n#scale level two priors\n",  
                        prior_scale2 )
             
-    
-      
       model_code <- paste0("model{\n", two_level_rjags,
                            "\n", 
                            priors, 
                            "\n}")
-      
       
       params <- c("beta", "gamma", "re_2", "tau_2")
       
@@ -382,18 +372,6 @@ blsmeta <- function(yi, vi,
         }
       }
       
-      
-      
-      
-      prior_location <- lapply(which(names(prior) == "location"), 
-                               function(x){ prior[[x]] })
-      
-      prior_scale2 <- lapply(which(names(prior) == "scale"), 
-                             function(x){ prior[[x]] })
-      
-      prior_scale3 <- lapply(which(names(prior) == "scale"), 
-                             function(x){ prior[[x]] })
-      
       dat_list <- data_helper(data = data, arg = args)
       
       dat_check <- data
@@ -415,16 +393,13 @@ blsmeta <- function(yi, vi,
                          K = k, 
                          J = J)
       
-      prior_location <- location_prior(prior_location,
-                                       X_location = X_location,
-                                       yi = dat_list$y)
+      prior_location  <- prior_helper_loc(prior = prior, 
+                                          mm = X_location, 
+                                          mu = mean(dat_list$y))
       
-      prior_scale2 <- scale_level_two_prior(prior_scale2,
-                                            X_scale_2 = X_scale2)
+      prior_scale2 <- prior_helper_scale_2(prior, X_scale2)
       
-      prior_scale3 <- scale_level_three_prior(prior_scale3,
-                                              X_scale_3 = X_scale3)
-      
+      prior_scale3 <- prior_helper_scale_3(prior, X_scale3)
       
       priors <- paste0("#location priors\n", 
                        prior_location, 

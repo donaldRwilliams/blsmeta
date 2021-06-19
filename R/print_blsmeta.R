@@ -273,7 +273,10 @@ print.blsmeta <- function(x, cred = 0.95, ...) {
 
     } 
     
-}
-
-
+  } else if(class(x)[2] == "make_prior"){
+    cat(x$priors)
+    
+  } else if(class(x)[2] == "model_code"){
+    cat(x$model_code)
+  }
 }

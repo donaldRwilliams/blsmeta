@@ -935,14 +935,14 @@ check_level_3 <- function(x, dat_check){
 
 prior_helper_scale_2 <- function(prior, mm){
   
-  prior_scale <- lapply(which(names(prior) == "scale"), 
+  prior <- lapply(which(names(prior) == "scale"), 
                         function(x){ prior[[x]] })
   
-  prior_scale <- prior_scale[which(sapply( prior_scale, "[[", "level") == "two")]
+  prior <- prior[which(sapply( prior, "[[", "level") == "two")]
   
   mm_mod_names <- colnames(mm)
   
-  params <- sapply(prior_scale , "[[", "param")
+  params <- sapply(prior , "[[", "param")
   
   if(isFALSE( all(params %in% mm_mod_names))){
     stop("param not found in scale prior (level-two)")
@@ -969,6 +969,7 @@ prior_helper_scale_2 <- function(prior, mm){
       }
     }
   }
+  
   user_coef <- "\n"
   
   if (length(user) != 0) {
@@ -987,6 +988,118 @@ prior_helper_scale_2 <- function(prior, mm){
   
   paste0(unlist(prior_ls), user_coef, collapse = "")
   
+}
+
+
+prior_helper_scale_3 <- function(prior, mm){
+  
+  prior <- lapply(which(names(prior) == "scale"), 
+                  function(x){ prior[[x]] })
+  
+  prior <- prior[which(sapply( prior, "[[", "level") == "three")]
+  
+  mm_mod_names <- colnames(mm)
+  
+  params <- sapply(prior, "[[", "param")
+  
+  if(isFALSE( all(params %in% mm_mod_names))){
+    stop("param not found in scale prior (level-two)")
+  }
+  
+  user <- which(mm_mod_names %in% params)
+  
+  if(length(user) == 0){
+    defaults <- mm_mod_names
+  } else {
+    defaults <- mm_mod_names[-user]
+  }
+  
+  prior_ls <- list() 
+  
+  if(length(defaults) != 0){
+    for(i in 1:length(defaults)){
+      if(defaults[i] == "(Intercept)"){
+        prior_ls[[i]] <- paste0("#Intercept\n", 'eta[1] ~ dnorm(-2, 1)\n')
+      } else {
+        prior_ls[[i]] <-  paste0("\n#", defaults[i], '\neta[', 
+                                 match(defaults[i], mm_mod_names), 
+                                 '] ~ dnorm(0, 1)\n' )
+      }
+    }
+  }
+  
+  user_coef <- "\n"
+  
+  if (length(user) != 0) {
+    user_coef <- paste0(
+      "\n#",
+      params,
+      "\neta[",
+      match(params,
+            mm_mod_names),
+      "]",
+      " ~ ",
+      sapply(prior, "[[", "prior"),
+      collapse = "\n"
+    )
+  }
+  paste0(unlist(prior_ls), user_coef, collapse = "")
+}
+
+
+prior_helper_loc <- function(prior, mm, mu){
+  
+  prior <- lapply(which(names(prior) == "location"), 
+                      function(x){ prior[[x]] })
+  
+  mm_mod_names <- colnames(mm)
+  
+  params <- sapply(prior, "[[", "param")
+  
+  if(isFALSE( all(params %in% mm_mod_names))){
+    stop("param not found in location sub-model")
+  }
+  
+  user <- which(mm_mod_names %in% params)
+  
+  if(length(user) == 0){
+    defaults <- mm_mod_names
+  } else {
+    defaults <- mm_mod_names[-user]
+  }
+  
+  prior_ls <- list() 
+  
+  if(length(defaults) != 0){
+    for(i in 1:length(defaults)){
+      if(defaults[i] == "(Intercept)"){
+        prior_ls[[i]] <- paste0("#Intercept\n", 'beta[1] ~ dnorm(', 
+                                round(mu, 3), 
+                                ', pow(5,-2))\n')
+      } else {
+        prior_ls[[i]] <-  paste0("\n#", defaults[i], '\nbeta[', 
+                                 match(defaults[i], mm_mod_names), 
+                                 '] ~ dnorm(0, 1)\n' )
+      }
+    }
+  }
+  
+  user_coef <- "\n"
+  
+  if (length(user) != 0) {
+    user_coef <- paste0(
+      "\n#",
+      params,
+      "\nbeta[",
+      match(params,
+            mm_mod_names),
+      "]",
+      " ~ ",
+      sapply(prior, "[[", "prior"),
+      collapse = "\n"
+    )
+  }
+  paste0(unlist(prior_ls), user_coef, collapse = "")
 }
 
 extract_list_items <- function(x, item, as_df = FALSE) {
