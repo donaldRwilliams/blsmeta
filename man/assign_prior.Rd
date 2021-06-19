@@ -23,8 +23,26 @@ in a three-level model, set \code{level = "two"} for the level two
 scale model.}
 }
 \value{
-A character string
+A list that is used internally.
 }
 \description{
 Assign Prior Distributions to Parameters
+}
+\examples{
+library(psymetadata)
+
+prior <- c(assign_prior(param = "(Intercept)", 
+           prior = "dnorm(0, 1)", dpar = "location"),
+           assign_prior(param = "(Intercept)", 
+           prior = "dnorm(-2, 1)", 
+           dpar = "scale", level = "two")
+           )
+priors <- make_prior(yi = yi, 
+                     vi = vi, 
+                     prior = prior,
+                     es_id = es_id,
+                     study_id = study_id,
+                     data = gnambs2020)
+                     
+priors
 }

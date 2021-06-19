@@ -36,6 +36,11 @@
 posterior_samples <- function(object, 
                               param = NULL, 
                               print_names  = FALSE){
+  
+  if(!is(object, class2 = "blsmeta")) {
+    stop("must be of class 'blsmeta'")
+  }
+  
   if(object$model == "fe"){
     betas <- .extract_beta(object)
     colnames(betas) <- paste0("b_", colnames(object$X_location))
