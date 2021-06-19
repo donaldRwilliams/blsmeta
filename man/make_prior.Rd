@@ -58,7 +58,7 @@ including moderator(s) for level three variance component
 (assumed constant across studies). See \strong{Details}.}
 
 \item{prior}{one or more \code{blsmetaprior} objects created by
-\code{set_prior}.}
+\code{\link[blsmeta]{assign_prior}}.}
 
 \item{iter}{numeric. The number of posterior samples per chain
 (defaults to \code{5000}, excluding \code{warmup}).}
