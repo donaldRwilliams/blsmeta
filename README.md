@@ -393,7 +393,7 @@ students that join my lab:
 
 1.  Bayesian hypothesis testing (with the Bayes factor)
 
-2.  Visualization
+2.  Visualization (with **ggplot2**)
 
 3.  Shiny Application
 
@@ -418,4 +418,5 @@ the above options, or have an idea of your own, please email
 (<drwwilliams@ucdavis.edu>) or DM on Twitter
 (<https://twitter.com/wdonald_1985>). I prefer Twitter.
 
-Preference will be given to women of color and Native Americans.
+Women of color and Native Americans are especially encouraged to reach
+out.
