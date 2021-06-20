@@ -49,7 +49,7 @@ the utility of scale modeling in meta-analysis.
 -   [Three-Level Model](#three-level-model)
     -   [Comparing Variance Components](#comparing-variance-components)
 -   [MCMC metafor](#mcmc-metafor)
--   [Custom Priors](#custom-priors)
+-   [Custom Priors](#user-defined-priors)
 -   [Student Led Projects](#forthcoming-features)
     -   [Diversity](#diversity)
 
