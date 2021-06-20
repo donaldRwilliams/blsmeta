@@ -387,9 +387,8 @@ Then you can plot the prior with
 ## Forthcoming Features
 
 There are a variety of things strategically left out of **blsmeta**.
-This is because I am preparing to be a professor, where I will advise
-students. To this end, I am planning to tackle the following with
-students that join my lab:
+This is because I am preparing to hopefully be a professor. To this end,
+I am planning to tackle the following with students that join my lab:
 
 1.  Bayesian hypothesis testing (with the Bayes factor)
 
@@ -399,24 +398,22 @@ students that join my lab:
 
 4.  Website
 
-Options 3-4 will be ongoing for undergraduate students, whereas option 1
-is ideal for a graduate student (due to requiring a manuscript). Option
-2 will also result in being an author on the software paper for
-**blsmeta** (written once students contribute). For each option,
-students will learn valuable skills for industry (e.g., data science)
-and academia (pursing a PhD).
+Options 3-4 will be ongoing for undergraduate students. Option 2 will
+also result in being an author on the software paper for **blsmeta**
+(written once students contribute). For each option, students will learn
+valuable skills for industry (e.g., data science) and academia (pursing
+a PhD).
 
 Note also this “lab” exists only in thought, and will hopefully come to
 fruition in the fall of 2022 or 2023.
 
 ### Diversity
 
-While I intend to save these projects for my future lab, working with
-underrepresented students (BIPOC, first-generation, students from
-developing countries, etc.) takes precedence. If you are interested in
-the above options, or have an idea of your own, please email
-(<drwwilliams@ucdavis.edu>) or DM on Twitter
-(<https://twitter.com/wdonald_1985>). I prefer Twitter.
+While I intend to save these projects, working with underrepresented
+students (BIPOC, first-generation, students from developing countries,
+etc.) takes precedence. If you are interested in the above options, or
+have an idea of your own, please email (<drwwilliams@ucdavis.edu>) or DM
+on Twitter (<https://twitter.com/wdonald_1985>). I prefer Twitter.
 
 Women of color and Native Americans are especially encouraged to reach
 out.
