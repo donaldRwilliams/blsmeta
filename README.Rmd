@@ -62,6 +62,10 @@ of scale modeling in meta-analysis.
       -   [Comparing Variance Components](#comparing-variance-components)
 -   [MCMC metafor](#mcmc-metafor)
 -   [Custom Priors](#custom-priors)
+-   [Student Led Projects](#forthcoming-features)
+      -   [Diversity](#diversity)
+
+
 
 
 ## Installing JAGS
@@ -328,4 +332,102 @@ fit
 This function works for any kind of model fitted with `rma`.
 
 
-## Custom Priors
+## User-Defined Priors
+
+User-defined priors can be defined for each parameter. This is accomplished
+with the `assign_prior` function. For example, 
+
+```
+prior <- 
+  c(assign_prior(param = "(Intercept)", 
+                prior = "dnorm(0, pow(1, -2))", 
+                dpar = "location"),
+    assign_prior(param = "n", 
+                 prior = "dnorm(0, 1)", 
+                 dpar = "location"),
+    assign_prior(param = "(Intercept)", 
+              prior = "dnorm(-0.5, pow(1.5, -2))", 
+              dpar = "scale", level = "two")
+    )
+```
+The `pow(10, -2)` allows for specifying the standard deviation, 
+whereas `JAGS` uses the precision, or the inverse of the variance, which
+can be confusing (hence use `pow(., -2)`). This would then be used 
+in the `prior` argument of `blsmeta`.
+
+
+For a sanity check, it is possible to verify that the priors made it to the correct parameters as follows
+
+
+```
+priors <- make_prior(yi = yi, 
+           vi = vi, 
+           mods = ~ n,
+           prior = prior,
+           es_id = es_id,
+           study_id = study_id,
+           data = gnambs2020)
+
+priors
+
+#> #location priors
+#> 
+#> #(Intercept)
+#> beta[1] ~ dnorm(0, pow(1, -2))
+#> 
+#> #n
+#> beta[2] ~ dnorm(0, 1)
+#> 
+#> #scale level two priors
+#> 
+#> #(Intercept)
+#> gamma[1] ~ dnorm(-0.5, pow(1.5, -2))
+#> 
+#> #scale level three priors
+#> #Intercept
+#> eta[1] ~ dnorm(-2, 1)
+```
+
+Notice that the  "scale" priors are negative. At first, this may not seem
+correct because the scale refers to the variance. By default, however,
+a log-linear model is fitted to the variance components. As a result,
+the priors are on the log-scale which is very flexible on the one hand, but
+on the other, not very intuitive. 
+
+To make better understand those priors,
+use `sample_prior`, that is,
+
+```
+samps <- sample_prior(priors, iter = 50000)
+```
+
+Then you can plot the prior with `hist(exp(samps$gamma), xlim = c(0, 2), breaks = 10000)`.
+
+## Forthcoming Features
+There are a variety of things strategically left out of **blsmeta**. This
+is because I am preparing to be a professor, where I will advise students.
+To this end, I am planning to tackle the following with students that 
+join my lab:
+
+1. Bayesian hypothesis testing (with the Bayes factor)
+
+2. Visualization
+
+3. Shiny Application
+
+4. Website
+
+Options 3-4 will be ongoing for undergraduate students, whereas
+option 1 is ideal for a graduate student (due to requiring a 
+manuscript). Option 2 will also result in a software paper 
+(I will wait to write it until a student contributes). For each option,
+students will be added a contributors to **blsmeta** and will learn
+valuable skills for industry (e.g., data science).
+
+### Diversity
+While I intend to save these projects for my future lab, 
+working with underrepresented students (BIPOC, first-generation, students from developing countries, etc.) takes precedence--this cannot wait. 
+If you are interested in the above options, or you have an idea,
+please reach out to me.
+
+Here preference will be given to woman of color and Native Americans.
