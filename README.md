@@ -418,4 +418,6 @@ email (<drwwilliams@ucdavis.edu>) or DM on Twitter
 \[@wdonald\_1985\](<https://twitter.com/wdonald_1985>). I prefer
 Twitter.
 
+[link to Google!](http://google.com)
+
 Preference will be given to women of color and Native Americans.
