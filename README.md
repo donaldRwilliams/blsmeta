@@ -49,6 +49,7 @@ the utility of scale modeling in meta-analysis.
 -   [Three-Level Model](#three-level-model)
     -   [Comparing Variance Components](#comparing-variance-components)
 -   [MCMC metafor](#mcmc-metafor)
+-   [Custom Priors](#custom-priors)
 
 ## Installing JAGS
 
@@ -315,3 +316,5 @@ objects are currently supported).
     #> Date: Mon Jun 07 13:27:13 2021 
 
 This function works for any kind of model fitted with `rma`.
+
+## Custom Priors
