@@ -387,8 +387,8 @@ Then you can plot the prior with
 ## Forthcoming Features
 
 There are a variety of things strategically left out of **blsmeta**.
-This is because I am preparing to hopefully be a professor. To this end,
-I am planning to tackle the following with students that join my lab:
+This is because I am hoping to be professor. To this end, I am planning
+to tackle the following with students that join my lab:
 
 1.  Bayesian hypothesis testing (with the Bayes factor)
 
