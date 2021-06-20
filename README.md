@@ -404,7 +404,8 @@ interested), but these would not likely be a part of **blsmeta**. Option
 2 will result in authorship on the software paper for **blsmeta**
 (written once students contribute). Options 3-4 will be ongoing for
 undergraduate students. For each option, students will learn valuable
-skills for industry (e.g., data science) and academia (pursing a PhD).
+skills for industry (e.g., data science) and academia (e.g., pursing a
+PhD).
 
 Note also this “lab” exists only in thought, and will hopefully come to
 fruition in the fall of 2022 or 2023.
