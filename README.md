@@ -415,7 +415,7 @@ underrepresented students (BIPOC, first-generation, students from
 developing countries, etc.) takes precedence–this cannot wait. If you
 are interested in the above options, or have an idea of your own, please
 email (<drwwilliams@ucdavis.edu>) or DM on Twitter
-(\[@wdonald\_1985\](<https://twitter.com/wdonald_1985>)). I prefer
+\[@wdonald\_1985\](<https://twitter.com/wdonald_1985>). I prefer
 Twitter.
 
 Preference will be given to women of color and Native Americans.
