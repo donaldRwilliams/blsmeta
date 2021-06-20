@@ -336,7 +336,7 @@ accomplished with the `assign_prior` function. For example,
                   dpar = "scale", level = "two")
         )
 
-The `pow(10, -2)` allows for specifying the standard deviation, whereas
+The `pow(1.5, -2)` allows for specifying the standard deviation, whereas
 `JAGS` uses the precision, or the inverse of the variance, which can be
 confusing (hence use `pow(., -2)`). This would then be used in the
 `prior` argument of `blsmeta`.
