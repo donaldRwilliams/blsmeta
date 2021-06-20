@@ -387,8 +387,8 @@ Then you can plot the prior with
 ## Forthcoming Features
 
 There are a variety of things strategically left out of **blsmeta**.
-This is because I am hoping to be professor. To this end, I am planning
-to tackle the following with students that join my lab:
+This is because I am hoping to be a professor. To this end, I am
+planning to tackle the following with students that join my lab:
 
 1.  Bayesian hypothesis testing (with the Bayes factor)
 
@@ -398,11 +398,13 @@ to tackle the following with students that join my lab:
 
 4.  Website
 
-Options 3-4 will be ongoing for undergraduate students. Option 2 will
-also result in being an author on the software paper for **blsmeta**
-(written once students contribute). For each option, students will learn
-valuable skills for industry (e.g., data science) and academia (pursing
-a PhD).
+Option 1 could be a first year project for a graduate student. I have
+several other ideas for meta-analysis (to help get the ball rolling, if
+interested), but these would not likely be a part of **blsmeta**. Option
+2 will result in authorship on the software paper for **blsmeta**
+(written once students contribute). Options 3-4 will be ongoing for
+undergraduate students. For each option, students will learn valuable
+skills for industry (e.g., data science) and academia (pursing a PhD).
 
 Note also this “lab” exists only in thought, and will hopefully come to
 fruition in the fall of 2022 or 2023.
