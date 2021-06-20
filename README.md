@@ -401,9 +401,10 @@ students that join my lab:
 
 Options 3-4 will be ongoing for undergraduate students, whereas option 1
 is ideal for a graduate student (due to requiring a manuscript). Option
-2 will also result in a software paper (I will wait to write it until
-students contribute). For each option, students will learn valuable
-skills for industry (e.g., data science) and academia (pursing a PhD).
+2 will also result in being an author on the software paper for
+**blsmeta** (written once students contribute). For each option,
+students will learn valuable skills for industry (e.g., data science)
+and academia (pursing a PhD).
 
 Note also this “lab” exists only in thought, and will hopefully come to
 fruition in the fall of 2022 or 2023.
@@ -415,9 +416,6 @@ underrepresented students (BIPOC, first-generation, students from
 developing countries, etc.) takes precedence–this cannot wait. If you
 are interested in the above options, or have an idea of your own, please
 email (<drwwilliams@ucdavis.edu>) or DM on Twitter
-\[@wdonald\_1985\](<https://twitter.com/wdonald_1985>). I prefer
-Twitter.
-
-[link to Google!](http://google.com)
+(<https://twitter.com/wdonald_1985>). I prefer Twitter.
 
 Preference will be given to women of color and Native Americans.
