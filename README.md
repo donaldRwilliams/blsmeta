@@ -377,7 +377,7 @@ log-linear model is fitted to the variance components. As a result, the
 priors are on the log-scale which is very flexible on the one hand, but
 on the other, not very intuitive.
 
-To make better understand those priors, use `sample_prior`, that is,
+To better understand those priors, use `sample_prior`.
 
     samps <- sample_prior(priors, iter = 50000)
 
@@ -413,9 +413,9 @@ fruition in the fall of 2022 or 2023.
 
 While I intend to save these projects for my future lab, working with
 underrepresented students (BIPOC, first-generation, students from
-developing countries, etc.) takes precedence–this cannot wait. If you
-are interested in the above options, or have an idea of your own, please
-email (<drwwilliams@ucdavis.edu>) or DM on Twitter
+developing countries, etc.) takes precedence. If you are interested in
+the above options, or have an idea of your own, please email
+(<drwwilliams@ucdavis.edu>) or DM on Twitter
 (<https://twitter.com/wdonald_1985>). I prefer Twitter.
 
 Preference will be given to women of color and Native Americans.
