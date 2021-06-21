@@ -254,7 +254,9 @@ blsmeta <- function(yi, vi,
       design_mats <- list(X_location = X_location, 
                           X_scale_2 = X_scale2)
       
-      dat_list_jags <- c(dat_list , design_mats, K = k)
+      dat_list_jags <- c(dat_list, 
+                         design_mats, 
+                         K = k)
       
       prior_location  <- prior_helper_loc(prior = prior, 
                                           mm = X_location, 
