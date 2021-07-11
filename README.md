@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src="man/figures/blsmeta_hex.png" width = 250 />
+
 # blsmeta: Bayesian Location-Scale Meta-Analysis
 
 [![Build

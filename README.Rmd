@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+<img src="man/figures/blsmeta_hex.png" width = 250 />
+
 # blsmeta: Bayesian Location-Scale Meta-Analysis
 
 [![Build Status](https://www.travis-ci.com/donaldRwilliams/blsmeta.svg?branch=main)](https://travis-ci.com/donaldRwilliams/blsmeta)
